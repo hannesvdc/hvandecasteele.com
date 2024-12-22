@@ -3,6 +3,49 @@
 <head>
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9; /* Light background */
+        color: #333; /* Dark text */
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-picture {
+        flex-shrink: 0;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #007BFF;
+    }
+
+    .text-content {
+        max-width: 600px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+</style>
 </head>
 <body>
 
@@ -13,11 +56,14 @@
         <a href="travel.html">Conferences & Travel</a>
         <a href="projects.html">Projects</a>
     </div>
-    </div>
+</div>
 
-<div style="padding-left:16px">
-  <h2>This is the index file</h2>
-  <p>Some content..</p>
+<div class="container">
+    <img src="your-photo.jpg" alt="Hannes Vandecasteele" class="profile-picture">
+    <div class="text-content">
+        <h1>Welcome</h1>
+        <p>Hello! I'm Hannes Vandecasteele, a postdoctoral researcher specializing in numerical algorithms for computational drug design. I hold a PhD from KU Leuven in Belgium and am currently continuing my work at Johns Hopkins University. My research combines advanced numerical methods with cutting-edge computational techniques to solve challenging problems in drug design and scientific computing.</p>
+    </div>
 </div>
 
 </body>
