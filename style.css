@@ -63,7 +63,7 @@ body {
 
 .welcome_container {
     max-width: 1000px;
-    margin: 20px auto;
+    margin: 100px auto;
     display: flex;
     align-items: center;
     gap: 20px;
