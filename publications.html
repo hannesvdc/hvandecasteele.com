@@ -3,6 +3,41 @@
 <head>
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9; /* Light background */
+        color: #333; /* Dark text */
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff; /* White content background */
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 24px;
+        border-bottom: 2px solid #007BFF;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+</style>
 </head>
 <body>
 
@@ -15,10 +50,14 @@
     </div>
     </div>
 
-<div style="padding-left:16px">
-  <h2>Here comes the list of publications</h2>
-  <p>Some content..</p>
-</div>
+    <div class="container">
+        <h1>Publications</h1>
+        <ul>
+            <li>Author Name, Co-author Name. <strong>"Title of the Paper"</strong>, <em>Journal Name</em>, Year, DOI: <a href="#">doi-link</a>.</li>
+            <li>Author Name, Co-author Name. <strong>"Another Paper Title"</strong>, <em>Conference Name</em>, Year, DOI: <a href="#">doi-link</a>.</li>
+            <li>Author Name, Co-author Name. <strong>"Yet Another Publication"</strong>, <em>Journal Name</em>, Year, DOI: <a href="#">doi-link</a>.</li>
+        </ul>
+    </div>
 
 </body>
 
