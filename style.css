@@ -30,3 +30,14 @@ body {
 .topnav-right {
   float: right;
 }
+
+footer {
+    height: 300px;
+   width: 100%;
+  }
+p.copyright {
+    width: 100%;
+   line-height: 10px;
+   text-align: center;
+    bottom:0;
+}
