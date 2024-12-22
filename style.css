@@ -63,7 +63,7 @@ body {
 
 h1 {
     font-size: 24px;
-    border-bottom: 2px solid #007BFF;
+    /*border-bottom: 2px solid #007BFF;*/
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -73,5 +73,5 @@ ul {
 }
 
 li {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
