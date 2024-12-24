@@ -6,4 +6,4 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('header-container').innerHTML = data;
       })
       .catch(error => console.error('Error loading header:', error));
-  });
+});
