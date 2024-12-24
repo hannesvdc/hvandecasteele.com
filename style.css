@@ -32,6 +32,8 @@ body {
 }
 
 footer {
+  font-size: 14px;
+  text-align: center;
   height: 200px;
  width: 100%;
 }
