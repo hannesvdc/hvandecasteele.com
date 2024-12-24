@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script src="load_header.js"></script>
 <script src="script.js"></script>
-<script>
-  // Load the header HTML dynamically
-  document.addEventListener("DOMContentLoaded", function() {
-    fetch('header_nav.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-container').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading header:', error));
-  });
-</script>
 
 <head>
 <meta charset="UTF-8">
