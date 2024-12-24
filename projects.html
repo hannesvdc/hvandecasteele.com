@@ -1,44 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Projects Grid</title>
 <link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
-header {
-  text-align: center;
-  padding: 20px;
-  background-color: #333;
-  color: white;
-}
-
-h1 {
-  margin: 0;
-}
-
-.projects-grid {
+/* Add additional grid-specific styles */
+#projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  left: 200px;
-  top: 100px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
-  justify-content: center;
-  justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.project-card {
+.grid-item {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.3s ease;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+}
+
+.grid-item:hover {
+  transform: scale(1.05);
+  background-color: #04AA6D;
+  color: white;
+}
+
+header {
+  text-align: center;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #666;
 }
 </style>
 </head>
 <body>
 
+<!-- Top Navigation -->
 <div class="topnav">
   <a class="active" href="https://hvandecasteele.com">Hannes Vandecasteele</a>
   <div class="topnav-right">
@@ -48,30 +63,19 @@ h1 {
   </div>
 </div>
 
+<!-- Header -->
+<header>
+  <h1>My Projects</h1>
+</header>
 
-  <header>
-      <h1>My Projects</h1>
-  </header>
-  <main class="projects-grid">
-      <!-- Project 1 -->
-      <div class="project-card" onclick="redirectTo('project1.html')">
-          <img src="images/project1.jpg" alt="Project 1 Image">
-          <h2>Project Title 1</h2>
-          <p>Short description of Project 1.</p>
-      </div>
-      <!-- Project 2 -->
-      <div class="project-card" onclick="redirectTo('project2.html')">
-          <img src="images/project2.jpg" alt="Project 2 Image">
-          <h2>Project Title 2</h2>
-          <p>Short description of Project 2.</p>
-      </div>
-      <!-- Add more projects as needed -->
-  </main>
-  <script src="script.js"></script>
+<!-- Responsive Projects Grid -->
+<div id="projects-grid"></div>
 
-
-</body>
+<!-- Footer -->
 <footer>
-    <p class="copyright">©Hannes Vandecasteele 2024</p>
+  <p>© Hannes Vandecasteele 2024</p>
 </footer>
+
+<script src="script.js"></script>
+</body>
 </html>
