@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
       image: "images/backmapping.png"
     },
     {
-      title: "Project 3",
-      link: "project3.html",
-      description: "This is a brief description of Project 3, providing context and results.",
-      image: "images/project3.jpg"
+      title: "Locating Saddle Points on Manifolds",
+      link: "saddle.html",
+      description: "Locating Saddle Points on Manifolds defined by Point Clouds using Gentlest Ascent Dynamics and Gradient Extremals.",
+      image: "images/saddle.png"
     },
     {
       title: "Micro-Macro MCMC Sampling",
