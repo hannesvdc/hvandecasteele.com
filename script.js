@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const projects = [
     {
-      title: "Project 1",
-      link: "project1.html",
-      description: "This is a brief description of Project 1, explaining its goals and outcomes.",
-      image: "images/project1.jpg"  // Add image URL for each project
+      title: "PyCont",
+      link: "pycont.html",
+      description: "Numerical Continuation and Bifurcation Detection Tool written in Python.",
+      image: "images/pycont.png"
     },
     {
-      title: "Project 2",
+      title: "Backmapping for Protein Folding",
       link: "project2.html",
       description: "This is a brief description of Project 2, explaining its key points.",
       image: "images/project2.jpg"
