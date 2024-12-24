@@ -72,16 +72,8 @@
 </style>
 </head>
 <body>
-
-<!-- Top Navigation -->
-<div class="topnav">
-  <a class="active" href="https://hvandecasteele.com">Hannes Vandecasteele</a>
-  <div class="topnav-right">
-    <a href="publications.html">Publications</a>
-    <a href="travel.html">Upcoming Conferences & Seminars</a>
-    <a href="projects.html">Projects</a>
-  </div>
-</div>
+<!-- This is where the header will be inserted -->
+<div id="header-container"></div>
 
 <!-- Header -->
 <header>
@@ -97,5 +89,16 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+  // Load the header HTML dynamically
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch('header_nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
+  });
+</script>
 </body>
 </html>
