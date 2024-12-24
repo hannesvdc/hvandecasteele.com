@@ -25,10 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
       image: "images/project4.jpg"
     },
     {
-      title: "Project 5",
-      link: "project5.html",
-      description: "This is a brief description of Project 5, summarizing its main objectives.",
-      image: "images/project5.jpg"
+      title: "Micro-Macro Acceleration",
+      link: "micro_macro_acc.html",
+      description: "Micro-Macro acceleration for multiscale stochastic differential equations.",
+      image: "images/micro_macro_acc.png"
     },
   ];
 
