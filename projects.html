@@ -2,48 +2,38 @@
 <html>
 <head>
 <link rel="stylesheet" href="style.css">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-}
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  max-width: 800px;
-  margin: 20px;
-}
-
-.grid-item {
-  background-color: #007acc;
-  color: white;
+header {
   text-align: center;
   padding: 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 1 / 1; /* Ensures squares */
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-  transition: transform 0.2s ease, background-color 0.3s ease;
+  background-color: #333;
+  color: white;
 }
 
-.grid-item:hover {
-  background-color: #005f99;
-  transform: scale(1.05);
+h1 {
+  margin: 0;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  left: 200px;
+  top: 100px;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  justify-items: center;
+}
+
+.project-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 </style>
 </head>
@@ -62,8 +52,21 @@ body {
   <header>
       <h1>My Projects</h1>
   </header>
-  <div id="projects-grid" class="grid-container"></div>
-
+  <main class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card" onclick="redirectTo('project1.html')">
+          <img src="images/project1.jpg" alt="Project 1 Image">
+          <h2>Project Title 1</h2>
+          <p>Short description of Project 1.</p>
+      </div>
+      <!-- Project 2 -->
+      <div class="project-card" onclick="redirectTo('project2.html')">
+          <img src="images/project2.jpg" alt="Project 2 Image">
+          <h2>Project Title 2</h2>
+          <p>Short description of Project 2.</p>
+      </div>
+      <!-- Add more projects as needed -->
+  </main>
   <script src="script.js"></script>
 
 
