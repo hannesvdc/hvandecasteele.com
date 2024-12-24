@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       title: "Micro-Macro Acceleration",
-      link: "project/micro_macro_acc.html",
+      link: "projects/micro_macro_acc.html",
       description: "Micro-macro acceleration for stochastic differential equations with a time-scale separation.",
       image: "images/micro_macro_acc_resized.png"
     },
