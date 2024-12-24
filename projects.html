@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<script src="script.js"></script>
+<script>
+  // Load the header HTML dynamically
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch('header_nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
+  });
+</script>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,37 +82,25 @@
     color: white;
     padding: 20px;
   }
-
 </style>
 </head>
+
 <body>
 <!-- This is where the header will be inserted -->
 <div id="header-container"></div>
 
 <!-- Header -->
 <header>
-  <h1></h1>
+  <h1>All my Current and Past Projects</h1>
 </header>
 
 <!-- Responsive Projects Grid -->
 <div id="projects-grid"></div>
+</body>
 
 <!-- Footer -->
 <footer>
   <p>© Hannes Vandecasteele 2024</p>
 </footer>
 
-<script src="script.js"></script>
-<script>
-  // Load the header HTML dynamically
-  document.addEventListener("DOMContentLoaded", function() {
-    fetch('header_nav.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-container').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading header:', error));
-  });
-</script>
-</body>
 </html>
