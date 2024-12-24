@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
       image: "images/project3.jpg"
     },
     {
-      title: "Project 4",
-      link: "project4.html",
-      description: "This is a brief description of Project 4, highlighting its major achievements.",
-      image: "images/project4.jpg"
+      title: "Micro-Macro MCMC Sampling",
+      link: "mM_MCMC.html",
+      description: "Micro-Macro Markov Chain Monte Carlo Accelerated Sampling for Molecular Dynamics using Reaction Coordinates.",
+      image: "images/mMFigure_png.png"
     },
     {
       title: "Micro-Macro Acceleration",
