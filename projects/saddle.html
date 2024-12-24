@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+  // Load the header HTML dynamically
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch('header_nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
+  });
+</script>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hannes Vandecasteele</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+</body>
+
+<footer>
+    <p class="copyright">©Hannes Vandecasteele 2024</p>
+</footer>
+
+</html>

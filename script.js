@@ -2,31 +2,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const projects = [
     {
       title: "PyCont",
-      link: "pycont.html",
+      link: "projects/pycont.html",
       description: "Numerical Continuation and Bifurcation Detection Tool written in Python.",
       image: "images/pycont.png"
     },
     {
       title: "Backmapping for Protein Folding",
-      link: "backmapping.html",
+      link: "projects/backmapping.html",
       description: "Micro-macro Markov chain Monte Carlo sampling with backmapping for protein folding.",
       image: "images/backmapping.png"
     },
     {
       title: "Locating Saddle Points on Manifolds",
-      link: "saddle.html",
+      link: "projects/saddle.html",
       description: "Locating Saddle Points on Manifolds defined by Point Clouds using Gentlest Ascent Dynamics and Gradient Extremals.",
       image: "images/saddle.png"
     },
     {
       title: "Micro-Macro MCMC Sampling",
-      link: "mM_MCMC.html",
+      link: "projects/mM_MCMC.html",
       description: "Micro-Macro Markov Chain Monte Carlo Accelerated Sampling for Molecular Dynamics using Reaction Coordinates.",
       image: "images/mMFigure_png.png"
     },
     {
       title: "Micro-Macro Acceleration",
-      link: "micro_macro_acc.html",
+      link: "project/micro_macro_acc.html",
       description: "Micro-macro acceleration for stochastic differential equations with a time-scale separation.",
       image: "images/micro_macro_acc.png"
     },
