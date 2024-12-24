@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       title: "Backmapping for Protein Folding",
       link: "backmapping.html",
-      description: "",
-      image: "images/project2.jpg"
+      description: "Micro-macro Markov chain Monte Carlo sampling with backmapping for protein folding.",
+      image: "images/backmapping.png"
     },
     {
       title: "Project 3",
