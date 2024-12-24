@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       title: "Backmapping for Protein Folding",
-      link: "project2.html",
-      description: "This is a brief description of Project 2, explaining its key points.",
+      link: "backmapping.html",
+      description: "",
       image: "images/project2.jpg"
     },
     {
