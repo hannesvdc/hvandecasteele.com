@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const scriptPath = scriptElement.src; // Get the full path of the current script
     const basePath = scriptPath.substring(0, scriptPath.lastIndexOf('/') + 1); // Extract the base directory
     const headerPath = basePath + 'header_nav.html'; // Append the header file name
+    console.log('HeaderPath: ', headerPath);
 
     fetch(headerPath)
       .then(response => response.text())
