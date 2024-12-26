@@ -1,5 +1,4 @@
-// Dynamically determine the script path and load the header
-const scriptElement = document.currentScript; // Capture the script element
+const scriptElement = document.currentScript;
 
 // Load the header HTML dynamically
 document.addEventListener("DOMContentLoaded", function() {
