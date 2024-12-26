@@ -1,8 +1,9 @@
 const scriptElement = document.currentScript; // Capture the script element
-console.log('scriptpath', scriptPath);
+console.log('scriptElement', scriptElement);
 
 // Load the header HTML dynamically
 document.addEventListener("DOMContentLoaded", function() {
+  console.log('Header directory: ', scriptElement.src);
   if (scriptElement) {
     const scriptPath = scriptElement.src; // Get the full path of the current script
     const basePath = scriptPath.substring(0, scriptPath.lastIndexOf('/') + 1); // Extract the base directory
