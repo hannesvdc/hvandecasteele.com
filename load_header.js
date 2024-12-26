@@ -1,5 +1,6 @@
 // Load the header HTML dynamically
 document.addEventListener("DOMContentLoaded", function() {
+    document.write(window.location.href);
     fetch('/header_nav.html')
       .then(response => response.text())
       .then(data => {
