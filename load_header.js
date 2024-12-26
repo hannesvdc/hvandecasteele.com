@@ -1,11 +1,11 @@
 // Load the header HTML dynamically
 document.addEventListener("DOMContentLoaded", function() {
-    var scripts = document.getElementsByTagName("script")
-    var src = scripts[scripts.length-1].src;
-    console.log('scripts:', scripts);
-    console.log('src:', src);
+    var header_nav = document.getElementsByTagName("header_nav")
+    var header_nav_src = scripts[scripts.length-1].src;
+    console.log('scripts:', header_nav);
+    console.log('src:', header_nav_src);
     
-    fetch('header_nav.html')
+    fetch(header_nav_src)
       .then(response => response.text())
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
