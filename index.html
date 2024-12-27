@@ -17,36 +17,23 @@
 
     .text-content {
     flex: 2 1 300px; /* Adjust the proportions as needed */
+    max-width: 600px;
     }
 
     @media (max-width: 600px) {
-    .welcome_container {
-        flex-direction: column; /* Stack elements vertically */
-        text-align: center; /* Center text for smaller screens */
-    }
+        .welcome_container {
+            flex-direction: column; /* Stack elements vertically */
+            text-align: center; /* Center text for smaller screens */
+        }
 
-    .text-content {
-        padding: 0 10px; /* Add some padding for readability */
-    }
+        .text-content {
+            padding: 0 10px; /* Add some padding for readability */
+        }
 
-    .profile-picture {
-        margin-bottom: 20px; /* Add spacing between image and text */
+        .profile-picture {
+            margin-bottom: 20px; /* Add spacing between image and text */
+        }
     }
-    }
-
-    /* .profile-picture {
-        flex-shrink: 0;
-        width: 250px;
-        height: 250px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #007BFF;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }*/
-
-    .text-content {
-        max-width: 600px;
-    } */
 
     p {
         line-height: 1.6;
