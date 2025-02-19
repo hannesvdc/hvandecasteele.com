@@ -99,6 +99,21 @@ i {
 i:hover {
     color: darkblue;
 }
+
+.titles-container {
+    display: flex;
+    flex-direction: column; /* Stacks the <h2>'s vertically */
+    align-items: center; /* Centers the text horizontally */
+    gap: 5px; /* Adjust space between the <h2>'s */
+    margin-top: 10px;
+}
+
+.titles-container h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: normal; /* Adjust weight for a softer look */
+    color: #333; /* Dark gray for better readability */
+}
 </style>
 </head>
 
@@ -108,9 +123,9 @@ i:hover {
 <div class="section white bio-section">
     <div class="left-content">
         <img src="images/profile_picture.jpeg" alt="Hannes Vandecasteele" class="profile-picture">
-        <div class="social-links">
+        <div class="titles-container">
             <h2>Postdoctoral Research Fellow</h2>
-            
+
             <h2>Johns Hopkins University</h2>
         </div>
 
