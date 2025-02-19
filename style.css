@@ -81,20 +81,6 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.welcome_container {
-  max-width: 1000px;
-  margin: 20px auto;
-  display: flex;
-  flex-wrap: wrap; /* Enables wrapping for smaller screens */
-  align-items: center;
-  gap: 20px; /* Adjusted gap for better responsiveness */
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: justify;
-}
-
 h1 {
   font-size: 24px;
   padding-bottom: 10px;
