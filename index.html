@@ -7,19 +7,14 @@
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-    /* Biography Section */
-.welcome_container {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap; /* Ensures responsiveness */
-  align-items: center;
-  gap: 40px;
-  padding: 50px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: justify;
+.bio-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px; /* More spacing between image & text */
+    padding: 60px 10%; /* Increased padding */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .profile-picture {
@@ -33,6 +28,7 @@
 .text-content {
   flex: 1;
   min-width: 300px;
+  text-align: justify;
 }
 
 /* Typography Enhancements */
@@ -74,7 +70,7 @@ p {
 <body>
 <div id="header-container"></div>
 
-<div class="section white">
+<div class="section white bio-section">
     <div class="welcome_container">
         <img src="images/profile_picture.jpeg" alt="Hannes Vandecasteele" class="profile-picture">
         <div class="text-content">
@@ -103,6 +99,10 @@ p {
         </div>
     </div>
 </div>
+
+<div class="section gray">
+</div>
+
 </body>
 
 <footer>
