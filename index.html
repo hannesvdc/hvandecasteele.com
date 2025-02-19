@@ -114,6 +114,116 @@ i:hover {
     font-weight: normal; /* Adjust weight for a softer look */
     color: #333; /* Dark gray for better readability */
 }
+
+/* Section Styling */
+.experience-section {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.experience-section h2 {
+    font-size: 36px;
+    color: #333;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Timeline Container */
+.timeline {
+    position: relative;
+    padding-left: 40px; /* Space for the vertical line */
+    border-left: 2px solid #0073e6; /* Timeline vertical line */
+}
+
+/* Timeline Items */
+.timeline-item {
+    position: relative;
+    padding: 20px 0 20px 40px;
+    margin-bottom: 30px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Timeline Dot */
+.timeline-icon {
+    position: absolute;
+    left: -13px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border: 3px solid #0073e6;
+    border-radius: 50%;
+}
+
+/* Timeline Content */
+.timeline-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-content h3 {
+    font-size: 22px;
+    color: #444;
+    margin: 0 0 5px;
+    font-weight: bold;
+}
+
+.timeline-content h4 {
+    font-size: 18px;
+    color: #777;
+    margin: 0 0 10px;
+    font-weight: normal;
+}
+
+.timeline-content p {
+    font-size: 16px;
+    color: #555;
+    margin: 0 0 15px;
+}
+
+.timeline-content ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.timeline-content ul li {
+    color: #444;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .experience-section {
+        padding: 10px;
+    }
+
+    .timeline {
+        padding-left: 20px;
+    }
+
+    .timeline-item {
+        padding: 10px 0 10px 30px;
+    }
+
+    .timeline-content {
+        padding: 15px;
+    }
+
+    .timeline-icon {
+        left: -10px;
+    }
+}
 </style>
 </head>
 
@@ -169,6 +279,34 @@ i:hover {
 </div>
 
 <div class="section gray">
+    <section class="experience-section">
+        <h2>Experience</h2>
+        <div class="timeline">
+            <!-- Experience Item 1 -->
+            <div class="timeline-item">
+                <div class="timeline-icon"></div>
+                <div class="timeline-content">
+                    <h3>Quantum computing and HPC architecture and performance engineer</h3>
+                    <h4>NERSC, Lawrence Berkeley National Laboratory</h4>
+                    <p>Apr 2022 – Present · Berkeley, California</p>
+                </div>
+            </div>
+    
+            <!-- Experience Item 2 -->
+            <div class="timeline-item">
+                <div class="timeline-icon"></div>
+                <div class="timeline-content">
+                    <h3>Postdoctoral Scholar</h3>
+                    <h4>Lawrence Berkeley National Laboratory</h4>
+                    <p>Nov 2019 – Apr 2022 · Berkeley, California</p>
+                    <ul>
+                        <li>Quantum algorithms, quantum compilation</li>
+                        <li>Machine learning for nonlinear tensor factorizations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <div class="section white">
