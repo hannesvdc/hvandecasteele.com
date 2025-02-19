@@ -4,7 +4,11 @@
   align-items: center;
   background-color: white;
   padding: 10px 20px;
-  border-bottom: 1px solid #ddd;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Subtle gray shadow */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Light border for better definition */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensures it stays on top while scrolling */
 }
 
 .topnav .logo {
@@ -15,13 +19,15 @@
 }
 
 .topnav-links a {
-  color: #333;
+  color: #555;
   text-decoration: none;
   font-size: 17px;
   margin-left: 20px;
+  transition: color 0.2s;
 }
 
 .topnav-links a:hover {
+  color: #0073e6;
   text-decoration: underline;
 }
 
