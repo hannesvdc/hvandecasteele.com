@@ -7,37 +7,68 @@
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-    .profile-picture {
-    max-width: 100%; /* Ensures the image is responsive */
-    height: auto;
-    border-radius: 50%;
-    border: 2px solid #007BFF;
-    flex: 1 1 150px; /* Ensures flexibility */
-    }
+    /* Biography Section */
+.welcome_container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* Ensures responsiveness */
+  align-items: center;
+  gap: 30px;
+  padding: 40px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: justify;
+}
 
-    .text-content {
-    flex: 2 1 300px; /* Adjust the proportions as needed */
-    max-width: 600px;
-    }
+/* Profile Picture Styling */
+.profile-picture {
+  width: 180px; /* Adjust size */
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 
-    @media (max-width: 600px) {
-        .welcome_container {
-            flex-direction: column; /* Stack elements vertically */
-            text-align: center; /* Center text for smaller screens */
-        }
+/* Ensures text wraps correctly */
+.text-content {
+  flex: 1;
+  min-width: 300px;
+}
 
-        .text-content {
-            padding: 0 10px; /* Add some padding for readability */
-        }
+/* Typography Enhancements */
+h1 {
+  font-size: 26px;
+  margin-bottom: 15px;
+}
 
-        .profile-picture {
-            margin-bottom: 20px; /* Add spacing between image and text */
-        }
-    }
+p {
+  font-size: 18px;
+  line-height: 1.6;
+}
 
-    p {
-        line-height: 1.6;
-    }
+/* Links Styling */
+.text-content a {
+  color: #0073e6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.text-content a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+  .welcome_container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .profile-picture {
+    width: 150px;
+  }
+}
 </style>
 </head>
 
@@ -45,32 +76,33 @@
 <div id="header-container"></div>
 
 <div class="section white">
-    <img src="images/profile_picture.jpeg" alt="Hannes Vandecasteele" class="profile-picture">
-    <div class="text-content">
-        <h1>Biography</h1>
-        <p>Hello! I am Hannes Vandecasteele, a <em>postdoctoral research fellow</em> at the Department of Applied Mathematics and Statistics at Johns Hopkins University (JHU). I also hold a second
-            appointment at the Department of Chemical and Biomolecular Engineering at JHU. My advisor is Ioannis Kekvrekidis.
-            My current research focuses on developing machine learning algorithms for s scientific computing, and specificaly for computational chemistry. 
-            My goal is to integrate machine learning and advanced mathematical techniques to address the challenge of computational drug discovery.
-        </p>
+    <div class="welcome_container">
+        <img src="images/profile_picture.jpeg" alt="Hannes Vandecasteele" class="profile-picture">
+        <div class="text-content">
+            <h1>Biography</h1>
+            <p>Hello! I am Hannes Vandecasteele, a <em>postdoctoral research fellow</em> at the Department of Applied Mathematics and Statistics at Johns Hopkins University (JHU).
+                I also hold a second appointment at the Department of Chemical and Biomolecular Engineering at JHU. My advisor is Ioannis Kevrekidis.
+                My current research focuses on developing machine learning algorithms for scientific computing, specifically for computational chemistry.
+                My goal is to integrate machine learning and advanced mathematical techniques to address the challenge of computational drug discovery.
+            </p>
 
-        <p>
-            Previously, I worked on micro-macro Markov chain Monte Carlo methods for multiscale molecular dynamics, micro-macro acceleration for stochastic 
-            differential equations with a time-scale separation, and reaction-path continuation methods for chemical systems. Now, I am leveraging my expertise in machine learning for scientific computing 
-            to push the boundaries of what computational tools can achieve in the world.
-        </p>
+            <p>
+                Previously, I worked on micro-macro Markov chain Monte Carlo methods for multiscale molecular dynamics, micro-macro acceleration for stochastic 
+                differential equations with a time-scale separation, and reaction-path continuation methods for chemical systems.
+                Now, I am leveraging my expertise in machine learning for scientific computing to push the boundaries of what computational tools can achieve in the world.
+            </p>
 
-        <p>
-            I earned my PhD from KU Leuven in Belgium in 2023. My professional journey has also included working as a software engineer at Facebook where I developed physics engines for virtual reality applications.
-        </p>
+            <p>
+                I earned my PhD from KU Leuven in Belgium in 2023. My professional journey has also included working as a software engineer at Facebook,
+                where I developed physics engines for virtual reality applications.
+            </p>
 
-        <p>
-        You can reach me at hvandec1[at]jh.edu or connect with me on <a href="https://www.linkedin.com/in/hannes-vandecasteele/">LinkedIn</a>.
-        </p>
+            <p>
+                You can reach me at hvandec1[at]jh.edu or connect with me on 
+                <a href="https://www.linkedin.com/in/hannes-vandecasteele/">LinkedIn</a>.
+            </p>
+        </div>
     </div>
-</div>
-
-<div class="welcome_container">
 </div>
 </body>
 
