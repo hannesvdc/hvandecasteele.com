@@ -70,21 +70,21 @@ p.copyright {
 }
 
 body {
+  background-color: white;
+  color: #333;
   font-family: Arial, sans-serif;
-  line-height: 1.6;
   margin: 0;
   padding: 0;
-  background-color: white; /* Light background */
-  color: #333; /* Dark text */
 }
 
+/* Container Styling */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background: #fff; /* White content background */
-  border-radius: none;
-  box-shadow:none;
+  background: none; /* Ensure no background color */
+  box-shadow: none; /* Remove any box effect */
+  border: none;
 }
 
 h1 {
