@@ -159,20 +159,21 @@ i:hover {
     margin-bottom: 50px;
 }
 
-.timeline-item:last-child {
-    margin-bottom: 0;
-}
-
 .timeline-item:before {
     content: '';
     position: absolute;
     left: 202px; /* Aligns with the center of the circles */
-    top: 40px;
+    top: -10px; /* Starts from above the circle */
     width: 2px;
-    height: calc(100% - 60px); /* Connects to the next circle */
+    height: calc(100% + 20px); /* Extends to the next circle */
     background: #0073e6;
-    z-index: 1; /* Ensures lines are visible behind circles */
+    z-index: 0; /* Lines behind the circles */
 }
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
 
 .timeline-item:last-child:before {
     display: none;
