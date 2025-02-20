@@ -137,15 +137,26 @@ i:hover {
     position: relative;
     padding-left: 220px; 
     margin-left: 150px;
-    border-left: none;
+    border-left: none; /* No continuous line */
 }
 
+/* Positioning Timeline Circles */
+.timeline-icon {
+    position: absolute;
+    left: 195px; /* Aligns with the connecting lines */
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border: 3px solid #0073e6;
+    border-radius: 50%;
+    z-index: 2; /* Ensures circles appear above lines */
+}
 
 /* Adding Connecting Lines */
 .timeline-item {
     position: relative;
     margin-bottom: 50px;
-    padding-top: 10px;
 }
 
 .timeline-item:last-child {
@@ -155,12 +166,12 @@ i:hover {
 .timeline-item:before {
     content: '';
     position: absolute;
-    left: 197px; /* Aligns with the center of the circles */
+    left: 202px; /* Aligns with the center of the circles */
     top: 40px;
     width: 2px;
-    height: calc(100% - 80px); /* Connects to the next circle */
+    height: calc(100% - 60px); /* Connects to the next circle */
     background: #0073e6;
-    z-index: -1;
+    z-index: 1; /* Ensures lines are visible behind circles */
 }
 
 .timeline-item:last-child:before {
