@@ -135,20 +135,30 @@ i:hover {
 /* Timeline Container */
 .timeline {
     position: relative;
-    padding-left: 220px; /* Pushes the timeline to the right */
-    margin-left: 150px; /* Shifts the entire timeline to the right */
-    border-left: 2px solid #0073e6;
+    padding-left: 220px; 
+    margin-left: 150px;
+    border-left: none;
 }
 
-/* Timeline Items */
+
+/* Adding Connecting Lines */
 .timeline-item {
     position: relative;
-    padding: 20px 0 20px 50px;
-    margin-bottom: 30px;
 }
 
-.timeline-item:last-child {
-    margin-bottom: 0;
+.timeline-item:before {
+    content: '';
+    position: absolute;
+    left: 197px; /* Aligns with the center of the circles */
+    top: 40px;
+    width: 2px;
+    height: calc(100% - 60px); /* Connects to the next circle */
+    background: #0073e6;
+    z-index: -1;
+}
+
+.timeline-item:last-child:before {
+    display: none; /* Remove line for the last item */
 }
 
 /* Timeline Dot */
