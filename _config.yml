@@ -2,3 +2,4 @@ title: Hannes Vandecasteele
 description: My blog, technical notes and projects
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title/
+baseurl: ""
