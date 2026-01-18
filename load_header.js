@@ -2,8 +2,6 @@ const scriptElement = document.currentScript;
 
 document.addEventListener("DOMContentLoaded", function() {
   if (scriptElement) {
-//      const scriptPath = scriptElement.src;
-//      const basePath = scriptPath.substring(0, scriptPath.lastIndexOf('/') + 1);
       const headerPath = '/header_nav.html';
 
       fetch(headerPath)
