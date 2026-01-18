@@ -17,15 +17,17 @@
 </head>
 
 <body>
-  <main style="max-width: 900px; margin: 40px auto; padding: 0 16px;">
-    <h1>{{ page.title }}</h1>
-    <p><em>{{ page.date | date: "%B %d, %Y" }}</em></p>
-    <hr />
-    {{ content }}
-  </main>
+    <div id="header-container"></div>
 
-  <footer>
-    <p class="copyright">©Hannes Vandecasteele 2026</p>
-</footer>
+    <main style="max-width: 900px; margin: 40px auto; padding: 0 16px;">
+        <h1>{{ page.title }}</h1>
+        <p><em>{{ page.date | date: "%B %d, %Y" }}</em></p>
+        <hr />
+        {{ content }}
+    </main>
+
+    <footer>
+        <p class="copyright">© Hannes Vandecasteele {{ "now" | date: "%Y" }}</p>
+    </footer>
 </body>
 </html>
