@@ -1,22 +1,22 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{{ page.title }}</title>
-  <script src="/load_header.js"></script>
 
+  <script defer src="/load_header.js"></script>
   <link rel="stylesheet" href="/style.css" />
 </head>
+
 <body>
-  <!-- IMPORTANT: this must match what load_header.js targets -->
   <div id="header-container"></div>
 
-  <main style="max-width: 900px; margin: 40px auto; padding: 0 16px;">
+  <main class="page-wrap">
     {{ content }}
   </main>
 
-  <footer>
+  <footer class="site-footer">
     <p class="copyright">© Hannes Vandecasteele {{ "now" | date: "%Y" }}</p>
   </footer>
 </body>

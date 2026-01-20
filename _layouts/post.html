@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
 
+    <link rel="stylesheet" href="/style.css" />
     <script src="/load_header.js"></script>
 
     <!-- MathJax -->
@@ -12,18 +13,21 @@
         window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-
-    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
     <div id="header-container"></div>
 
-    <main style="max-width: 900px; margin: 40px auto; padding: 0 16px;">
-        <h1>{{ page.title }}</h1>
-        <p><em>{{ page.date | date: "%B %d, %Y" }}</em></p>
-        <hr />
+    <main class="post-wrap">
+        <div class="post-meta">
+        {{ page.date | date: "%b %-d, %Y" }}
+        </div>
+
+        <h1 class="post-title">{{ page.title }}</h1>
+
+        <article class="post-content">
         {{ content }}
+        </article>
     </main>
 
     <footer>

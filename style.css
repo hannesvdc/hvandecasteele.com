@@ -100,3 +100,95 @@ ul {
 li {
   margin-bottom: 30px;
 }
+
+/* Blog post typography */
+.post-wrap {
+  max-width: 980px;
+  margin: 48px auto;
+  padding: 0 22px;
+}
+
+.post-meta {
+  font-size: 28px;
+  line-height: 1.2;
+  color: #9aa0a6;
+  margin-bottom: 10px;
+}
+
+.post-title {
+  font-size: 44px;
+  line-height: 1.15;
+  font-weight: 500;
+  margin: 0 0 18px 0;
+}
+
+.post-title a,
+.post-title {
+  color: #0073e6;
+}
+
+/* Body text */
+.post-content {
+  font-size: 28px;
+  line-height: 1.55;
+  color: #111;
+}
+
+/* Make links match the title blue */
+.post-content a {
+  color: #0073e6;
+  text-decoration: none;
+}
+.post-content a:hover {
+  text-decoration: underline;
+}
+
+/* Paragraph spacing */
+.post-content p {
+  margin: 0 0 18px 0;
+}
+
+/* Optional: nice code blocks */
+.post-content pre {
+  overflow-x: auto;
+  padding: 14px 16px;
+  border-radius: 10px;
+}
+.post-content code {
+  font-size: 0.9em;
+}
+
+.blog-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.blog-item {
+  margin: 0 0 26px 0;
+}
+
+.blog-title {
+  display: inline-block;
+  font-size: 34px;
+  line-height: 1.2;
+  color: #0073e6;
+  text-decoration: none;
+}
+
+.blog-title:hover {
+  text-decoration: underline;
+}
+
+/* Global blog page container */
+.page-wrap {
+  max-width: 980px;
+  margin: 48px auto;
+  padding: 0 22px;
+}
+
+.site-footer {
+  max-width: 980px;
+  margin: 30px auto 60px auto;
+  padding: 0 22px;
+}
