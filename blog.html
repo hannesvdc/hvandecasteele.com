@@ -3,15 +3,15 @@ layout: default
 title: Blog
 ---
 
-<main class="post-wrap">
-  <h1 style="margin: 0 0 18px 0;">Blog</h1>
+<div class="blog-wrap">
+  <h1 class="blog-heading">Blog</h1>
 
   <ul class="blog-list">
     {% for post in site.posts %}
       <li class="blog-item">
-        <div class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</div>
+        <div class="blog-date">{{ post.date | date: "%b %-d, %Y" }}</div>
         <a class="blog-title" href="{{ post.url }}">{{ post.title }}</a>
       </li>
     {% endfor %}
   </ul>
-</main>
+</div>
