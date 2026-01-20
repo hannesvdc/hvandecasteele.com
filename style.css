@@ -233,33 +233,31 @@ blog-wrap {
 }
 
 .post-content figure {
-  margin: 24px auto;      /* centers the whole figure block */
-  text-align: center;     /* centers caption text */
+  margin: 24px auto;
+  text-align: center;
   max-width: 100%;
 }
 
 /* Make the image itself centered and responsive */
 .post-content figure img {
   display: block;
-  margin: 0 auto;         /* centers the image */
-  max-width: 100%;
+  margin: 0 auto;
+  max-width: 80%;
   height: auto;
 }
 
 /* Make captions look nice */
 .post-content figcaption {
   margin-top: 8px;
-  font-size: 0.92em;      /* slightly smaller than body text */
+  font-size: 0.7em;
   color: #555;
 }
 
-/* Slightly shrink inline math only */
+/* Slightly shrink inline math */
 mjx-container:not([display="true"]) {
   font-size: 0.93em !important;
-  vertical-align: 0.02em;   /* keeps it nicely aligned with text */
+  vertical-align: 0.02em;
 }
-
-/* Keep display math a touch larger (optional) */
 mjx-container[display="true"] {
   font-size: 0.70em !important;
 }
