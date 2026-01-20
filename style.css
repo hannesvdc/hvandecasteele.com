@@ -161,12 +161,12 @@ li {
 /* Blog post list typography */
 .post-content ul,
 .post-content ol {
-  font-size: 0.7em;          /* adjust: 0.90–0.95 */
+  font-size: 0.65em;          /* adjust: 0.90–0.95 */
 }
 
 .post-content li {
   margin: 0.25em 0;
-  line-height: 1.55;
+  line-height: 1.4;
 }
 
 /* Optional: tighten spacing between paragraphs and lists */
@@ -232,19 +232,25 @@ blog-wrap {
   padding: 0 22px;
 }
 
-figure {
-  margin: 28px 0;
+.post-content figure {
+  margin: 24px auto;      /* centers the whole figure block */
+  text-align: center;     /* centers caption text */
+  max-width: 100%;
 }
 
-figure img {
-  max-width: 70%;
-  border-radius: 8px;
+/* Make the image itself centered and responsive */
+.post-content figure img {
+  display: block;
+  margin: 0 auto;         /* centers the image */
+  max-width: 100%;
+  height: auto;
 }
 
-figcaption {
-  font-size: 18px;
-  color: #666;
+/* Make captions look nice */
+.post-content figcaption {
   margin-top: 8px;
+  font-size: 0.92em;      /* slightly smaller than body text */
+  color: #555;
 }
 
 /* Slightly shrink inline math only */
