@@ -1,4 +1,7 @@
-# Introduction
+---
+layout: post
+title: "PDE-Constrained Optimization"
+---
 
 PDE-constrained optimization provides a rigorous framework for optimizing functionals subject to partial differential equation (PDE) constraints. It is one of those techniques that appears deceptively simple from a distance but actually becomes increasingly subtle and complicated once you dive into the details. It is one of the greatest tools that modern computational science has to offer, yet few people truly understand the underlying mathematics and complexity. While PDE-constrained optimization is most commonly associated with shape and topology optimization, its potential for control, design, and yield optimization in physical and chemical systems is, in my view, significantly underappreciated.
 
@@ -48,10 +51,10 @@ $$
 $$
 
 The reduction from a constrained to an unconstrained formulation simplifies the optimization procedure a lot. Given the current parameter guess $p_n$, we:
--	Solve the discrete PDE $F(u,p_n)=0$ for $u(p_n)$;
--	Evaluate $f(p_n)=J(u(p_n),p_n)$;
--	Somehow compute the gradient $\frac{df}{dp}(p_n)$;
--	Pass the objective and its gradient to an optimizer to compute $p_{n+1}$.
+- Solve the discrete PDE $F(u,p_n)=0$ for $u(p_n)$;
+- Evaluate $f(p_n)=J(u(p_n),p_n)$;
+- Somehow compute the gradient $\frac{df}{dp}(p_n)$;
+- Pass the objective and its gradient to an optimizer to compute $p_{n+1}$.
 
 This is all there is to PDE-constrained optimization: a gradient-based optimizer running on top of a PDE solver. Typical choices are Newton, (L-)BFGS, or gradient descent (often with Adam).
 
@@ -155,6 +158,7 @@ In summary, PDE-constrained optimization proceeds in four steps:
 2.	Solve the adjoint PDE (13) for $\lambda$.
 3.	Compute the gradient using (12).
 4.	Update $p$ with any gradient-based optimizer.
+
 This makes adjoint methods dramatically more efficient than finite differences when $m$ is large.
 
 These steps are also shown on Figure 1.
