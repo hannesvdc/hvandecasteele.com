@@ -11,9 +11,11 @@ In this blog post I explain the mathematics of PDE-constrained optimization in d
 
 Let’s start from a time-independent partial differential equation
 $$
+
 \mathcal{F}(u,p) = 0, \qquad x \in \Omega \subset \mathbb{R}^d
 \tag{1}
 $$
+
 where $u(x)$ is the solution and $p \in \mathbb{R}^m$ is a set of parameters. We will assume that any forcing terms and boundary conditions have already been incorporated in this formulation. Time-independence is not strictly necessary — one might be interested in minimizing the maximal value of $\lVert u(x,t)\rVert$ over $t$ — but it does make the upcoming derivation somewhat easier.
 
 In most situations, the PDE is already discretized prior to optimization. Let

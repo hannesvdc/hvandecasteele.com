@@ -230,3 +230,7 @@ figcaption {
   margin-top: 8px;
   text-align: center;
 }
+
+mjx-container[jax="CHTML"][display="true"] {
+  font-size: 0.80em !important;
+}
