@@ -234,3 +234,15 @@ figcaption {
 mjx-container[jax="CHTML"][display="true"] {
   font-size: 0.50em !important;
 }
+
+/* ===== Blog / post-specific list styling ===== */
+main ul,
+main ol {
+  font-size: 0.95em;      /* slightly smaller than body text */
+  margin: 0.6em 0 0.9em 1.2em;
+}
+
+main li {
+  margin-bottom: 0.3em;
+  line-height: 1.55;
+}
