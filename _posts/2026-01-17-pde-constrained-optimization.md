@@ -7,12 +7,10 @@ In this blog post I explain the mathematics of PDE-constrained optimization in d
 # The Variational Formulation
 
 Let’s start from a time-independent partial differential equation
-
 $$
 \mathcal{F}(u,p) = 0, \qquad x \in \Omega \subset \mathbb{R}^d
 \tag{1}
 $$
-
 where $u(x)$ is the solution and $p \in \mathbb{R}^m$ is a set of parameters. We will assume that any forcing terms and boundary conditions have already been incorporated in this formulation. Time-independence is not strictly necessary — one might be interested in minimizing the maximal value of $\lVert u(x,t)\rVert$ over $t$ — but it does make the upcoming derivation somewhat easier.
 
 In most situations, the PDE is already discretized prior to optimization. Let
@@ -60,11 +58,13 @@ This is all there is to PDE-constrained optimization: a gradient-based optimizer
 # The Adjoint Method
 
 The hard part is computing the gradient
+
 $$
 \frac{df}{dp}
 = \frac{\partial J}{\partial u}\frac{du}{dp} + \frac{\partial J}{\partial p}.
 \tag{6}
 $$
+
 Here, $\partial J/\partial u \in \mathbb{R}^{Nd}$ is a row vector of partial derivatives of the objective with respect to the solution, and $\partial J/\partial p\in\mathbb{R}^m$ is usually easy to compute The difficult term is the Jacobian
 $$
 \frac{du}{dp} \in \mathbb{R}^{Nd\times m},
