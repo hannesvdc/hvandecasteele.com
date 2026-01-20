@@ -46,7 +46,9 @@ $$
 \min_p \ J(u(p),p) = \min_p f(p),
 \tag{4}
 $$
+
 and the optimum occurs whenever
+
 $$
 \frac{df}{dp}(p)=0.
 \tag{5}
