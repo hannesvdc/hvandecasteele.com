@@ -10,8 +10,8 @@ In this blog post I explain the mathematics of PDE-constrained optimization in d
 # The Variational Formulation
 
 Let’s start from a time-independent partial differential equation
-$$
 
+$$
 \mathcal{F}(u,p) = 0, \qquad x \in \Omega \subset \mathbb{R}^d
 \tag{1}
 $$
@@ -71,29 +71,38 @@ $$
 $$
 
 Here, $\partial J/\partial u \in \mathbb{R}^{Nd}$ is a row vector of partial derivatives of the objective with respect to the solution, and $\partial J/\partial p\in\mathbb{R}^m$ is usually easy to compute The difficult term is the Jacobian
+
 $$
 \frac{du}{dp} \in \mathbb{R}^{Nd\times m},
 \tag{7}
 $$
+
 which measures how the PDE solution changes with the parameters. There are two main approaches to computing such sensitivities: automatic differentiation (AD) and finite differences. Most large-scale legacy PDE solvers are not compatible with AD, especially when they rely on black-box solvers or iterative linear algebra routines. Differentiable PDE solvers are a very recent research topic.
 
 As a result, one typically resorts to finite differences. The idea is to perturb each component of $p$ by $\varepsilon e_i$ and solve the PDE:
+
 $$
 F(u(p+\varepsilon \ e_i),p+\varepsilon \ e_i)=0.
 $$
+
 Then the $i$-th column of the Jacobian is approximated by
+
 $$
 \frac{du}{dp}(:,i) \approx \frac{u(p + \varepsilon \ e_i)-u(p)}{\varepsilon}.
 $$
+
 This is extremely expensive: it requires solving the PDE $m$ times. Since the PDE solve is usually the computational bottleneck, this approach quickly becomes impractical.
 
 ## The Lagrangian
 
 Fortunately, we do not need the full Jacobian $du/dp$ — only its action on $\partial J/\partial u$. Since $F(u(p),p)=0$ for all $p$, differentiating with respect to $p$ gives
+
 $$
 \frac{\partial F}{\partial u}\frac{du}{dp} + \frac{\partial F}{\partial p} = 0,
 $$
+
 or equivalently,
+
 $$
 \frac{\partial F}{\partial u}\frac{du}{dp} = -\frac{\partial F}{\partial p}.
 \tag{8}
@@ -141,7 +150,6 @@ $$
 
 The expensive inverse has vanished. We now have a gradient formula depending only on how $F$ and $J$ depend on $p$.
 
-
 ## The Adjoint Equation
 
 We still need to compute $\lambda$. From (11) we obtain the adjoint equation:
@@ -161,9 +169,7 @@ In summary, PDE-constrained optimization proceeds in four steps:
 3.	Compute the gradient using (12).
 4.	Update $p$ with any gradient-based optimizer.
 
-This makes adjoint methods dramatically more efficient than finite differences when $m$ is large.
-
-These steps are also shown on Figure 1.
+This makes adjoint methods dramatically more efficient than finite differences when $m$ is large. These steps are also shown on Figure 1.
 <figure>
   <img src="/images/blog/pde-adjoint/workflow.png"
        alt="Schematic of the adjoint method">
