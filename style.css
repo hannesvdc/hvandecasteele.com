@@ -239,7 +239,7 @@ figure {
 }
 
 figure img {
-  max-width: 100%;
+  max-width: 70%;
   border-radius: 8px;
 }
 
@@ -250,6 +250,13 @@ figcaption {
   text-align: center;
 }
 
-mjx-container[jax="CHTML"][display="true"] {
-  font-size: 0.70em !important;
+/* Slightly shrink inline math only */
+mjx-container:not([display="true"]) {
+  font-size: 0.93em !important;
+  vertical-align: 0.02em;   /* keeps it nicely aligned with text */
+}
+
+/* Keep display math a touch larger (optional) */
+mjx-container[display="true"] {
+  font-size: 0.95em !important;
 }
