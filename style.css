@@ -158,6 +158,25 @@ li {
   font-size: 0.9em;
 }
 
+/* Blog post list typography */
+.post-content ul,
+.post-content ol {
+  font-size: 0.92em;          /* adjust: 0.90–0.95 */
+  margin: 0.6em 0 0.9em 1.2em;
+  padding-left: 0;            /* avoid double-indent if you set padding elsewhere */
+}
+
+.post-content li {
+  margin: 0.25em 0;
+  line-height: 1.55;
+}
+
+/* Optional: tighten spacing between paragraphs and lists */
+.post-content p + ul,
+.post-content p + ol {
+  margin-top: 0.4em;
+}
+
 blog-wrap {
   max-width: 980px;
   margin: 48px auto;
@@ -233,16 +252,4 @@ figcaption {
 
 mjx-container[jax="CHTML"][display="true"] {
   font-size: 0.50em !important;
-}
-
-/* ===== Blog / post-specific list styling ===== */
-main ul,
-main ol {
-  font-size: 0.95em;      /* slightly smaller than body text */
-  margin: 0.6em 0 0.9em 1.2em;
-}
-
-main li {
-  margin-bottom: 0.3em;
-  line-height: 1.55;
 }
