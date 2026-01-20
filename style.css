@@ -214,3 +214,18 @@ blog-wrap {
   margin: 30px auto 60px auto;
   padding: 0 22px;
 }
+
+figure {
+  margin: 28px 0;
+}
+
+figure img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+figcaption {
+  font-size: 18px;
+  color: #666;
+  margin-top: 8px;
+}
