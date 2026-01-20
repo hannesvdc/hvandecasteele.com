@@ -169,6 +169,17 @@ li {
   line-height: 1.4;
 }
 
+.post-content h1,
+.post-content h2 {
+  margin-top: 2.2em;   /* space before the heading */
+  margin-bottom: 0.6em;
+}
+
+.post-content h3 {
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
+}
+
 /* Optional: tighten spacing between paragraphs and lists */
 .post-content p + ul,
 .post-content p + ol {
