@@ -82,8 +82,8 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background: none; /* Ensure no background color */
-  box-shadow: none; /* Remove any box effect */
+  background: none;
+  box-shadow: none;
   border: none;
 }
 
@@ -161,7 +161,7 @@ li {
 /* Blog post list typography */
 .post-content ul,
 .post-content ol {
-  font-size: 0.65em;          /* adjust: 0.90–0.95 */
+  font-size: 0.65em;
 }
 
 .post-content li {
@@ -171,7 +171,7 @@ li {
 
 .post-content h1,
 .post-content h2 {
-  margin-top: 2.2em;   /* space before the heading */
+  margin-top: 2.2em;
   margin-bottom: 0.6em;
 }
 
