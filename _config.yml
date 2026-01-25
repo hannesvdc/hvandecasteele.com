@@ -7,6 +7,3 @@ plugins:
   - jekyll-feed
 feed:
   path: /blog/feed.xml
-  custom_fields:
-    - name: substack_url
-      value: substack_url
