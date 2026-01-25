@@ -3,3 +3,5 @@ description: My blog, technical notes and projects
 markdown: kramdown
 permalink: /blog/:title/
 baseurl: ""
+plugins:
+  - jekyll-feed
