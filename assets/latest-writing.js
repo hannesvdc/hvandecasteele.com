@@ -62,7 +62,7 @@ function render(items) {
   let items = [];
 
   try {
-    const blog = await fetchFeed(BLOG_FEED);
+    const blog = await fetchBlogFeed( );
     print( blog )
     items.push(...blog.map(x => ({ ...x, source: "blog" })));
   } catch (e) {
@@ -70,7 +70,7 @@ function render(items) {
   }
 
   try {
-    const sub = await fetchFeed(SUBSTACK_FEED);
+    const sub = await fetchSubstackFeed( );
     items.push(...sub.map(x => ({ ...x, source: "substack" })));
   } catch (e) {
     console.warn("Substack feed failed (likely CORS):", e);
