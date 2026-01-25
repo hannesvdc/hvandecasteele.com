@@ -481,7 +481,7 @@ mjx-container[display="true"] {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 10px;
   text-align: left;
 }
 
@@ -496,14 +496,15 @@ mjx-container[display="true"] {
   display: inline-block;
   font-size: 21px;
   font-weight: 600;
-  color: #333;
-  text-decoration: none;          /* no underline */
+  color: #4a4a4a; 
+  text-decoration: none;
   line-height: 1.35;
 }
 
 .writing-title:hover {
-  color: #0073e6;                 /* subtle affordance */
+  color: #2f6fbe;
 }
+
 
 /* Meta info (date · source) */
 .writing-meta {
@@ -518,7 +519,7 @@ mjx-container[display="true"] {
 
 /* Action row */
 .writing-actions {
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .writing-btn {
