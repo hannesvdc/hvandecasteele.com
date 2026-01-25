@@ -488,6 +488,7 @@ mjx-container[display="true"] {
 /* One writing entry */
 .writing-item {
   padding-left: 16px;
+  margin-bottom: 8px;
   border-left: 3px solid #e2e2e2;
 }
 
