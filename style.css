@@ -335,16 +335,12 @@ mjx-container[display="true"] {
   align-items: start;
 }
 
-.timeline-item:last-child:before {
-    display: none;
-}
-
 .timeline-item:last-child {
     margin-bottom: 0;
 }
 
 /* Optional: stop the line after the last dot */
-.timeline-item:last-child .timeline-icon::after {
+/* .timeline-item:last-child .timeline-icon::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -353,7 +349,7 @@ mjx-container[display="true"] {
   width: var(--line);
   height: 9999px;
   background: #f3f3f3;            /* match your section gray background */
-}
+/*} */
 
 /* Dot sits in gutter, centered on the line */
 .timeline-icon {
