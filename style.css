@@ -273,6 +273,26 @@ mjx-container[display="true"] {
   font-size: 0.70em !important;
 }
 
+/* Social Links Container */
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adjust space between icons */
+    margin-top: 20px; /* Adds space between profile picture and icons */
+}
+
+/* Icon Styling */
+.social-links img {
+    width: 50px; /* Adjusts icon size */
+    height: 50px;
+    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+/* Hover Effect */
+.social-links img:hover {
+    transform: scale(1.2); /* Slightly enlarges icon on hover */
+}
 
 .text-container {
     position: relative;

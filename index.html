@@ -28,27 +28,6 @@
   flex-shrink: 0;
 }
 
-/* Social Links Container */
-.social-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px; /* Adjust space between icons */
-    margin-top: 20px; /* Adds space between profile picture and icons */
-}
-
-/* Icon Styling */
-.social-links img {
-    width: 50px; /* Adjusts icon size */
-    height: 50px;
-    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
-}
-
-/* Hover Effect */
-.social-links img:hover {
-    transform: scale(1.2); /* Slightly enlarges icon on hover */
-}
-
 /* Ensures text wraps correctly */
 .text-content {
   flex: 1;
@@ -100,25 +79,10 @@ i:hover {
     color: darkblue;
 }
 
-.titles-container {
-    display: flex;
-    flex-direction: column; /* Stacks the <h2>'s vertically */
-    align-items: center; /* Centers the text horizontally */
-    gap: 5px; /* Adjust space between the <h2>'s */
-    margin-top: 10px;
-}
-
-.titles-container h2 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: normal; /* Adjust weight for a softer look */
-    color: #333; /* Dark gray for better readability */
-}
-
 /* Section Styling */
 .experience-section {
     max-width: 1200px;
-    margin: 50px auto;
+    margin: auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -140,9 +104,6 @@ i:hover {
 <div class="section white bio-section">
     <div class="left-content">
         <img src="images/profile_picture.jpeg" alt="Hannes Vandecasteele" class="profile-picture">
-        <div class="titles-container">
-            <h2></h2>
-        </div>
 
         <div class="social-links">
             <a href="mailto:hannesvdc@gmail.com" target="_blank">
