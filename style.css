@@ -419,25 +419,15 @@ mjx-container[display="true"] {
     margin-bottom: 4px;
 }
 
-/* Responsive Design */
+/* Kill any legacy timeline pseudo-elements from older CSS */
+.timeline-item::before,
+.timeline-item::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Remove legacy responsive rules that reposition dots */
 @media (max-width: 1200px) {
-    .experience-section {
-        padding: 10px;
-    }
-
-    .timeline {
-        padding-left: 20px;
-    }
-
-    .timeline-item {
-        padding: 10px 0 10px 30px;
-    }
-
-    .timeline-content {
-        padding: 15px;
-    }
-
-    .timeline-icon {
-        left: -10px;
-    }
+  .timeline { --gutter: 50px; margin-left: 20px; }
+  .timeline-content { padding: 18px 20px; width: 100%; }
 }
