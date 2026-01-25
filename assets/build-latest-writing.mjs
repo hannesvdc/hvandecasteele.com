@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 
 const BLOG_FEED = "https://hvandecasteele.com/blog/feed.xml";
-const SUBSTACK_FEED = "https://hannesvdc.substack.com/feed.xml";
+const SUBSTACK_FEED = "https://hannesvdc.substack.com/feed";
 const OUTFILE = "/assets/latest.json";
 const MAX_ITEMS = 5;
 
@@ -42,8 +42,24 @@ function parseItems(rssText) {
 }
 
 async function fetchText(url) {
-  const r = await fetch(url, { headers: { "User-Agent": "latest-writing-bot" } });
-  if (!r.ok) throw new Error(`Failed to fetch ${url}: ${r.status}`);
+  const r = await fetch(url, {
+    redirect: "follow",
+    headers: {
+      // A realistic UA helps with some bot filters
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+      "Accept":
+        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "en-US,en;q=0.9",
+      "Cache-Control": "no-cache",
+      "Pragma": "no-cache",
+    },
+  });
+
+  if (!r.ok) {
+    const body = await r.text().catch(() => "");
+    throw new Error(`Failed to fetch ${url}: ${r.status}\n${body.slice(0, 200)}`);
+  }
   return await r.text();
 }
 
