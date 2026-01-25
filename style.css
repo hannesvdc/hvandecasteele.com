@@ -521,20 +521,22 @@ mjx-container[display="true"] {
   margin-top: 10px;
 }
 
-/* Substack button */
 .writing-btn {
   display: inline-block;
   padding: 5px 14px;
   font-size: 13px;
   border-radius: 20px;
-  background: #f5f5f5;
-  color: #555;
+  background: #fff3ec;
+  color: #ff6719;
   text-decoration: none;
-  border: 1px solid #ddd;
-  transition: background 0.15s ease, color 0.15s ease;
+  border: 1px solid #ffd1b8;
+  transition: background 0.15s ease,
+              color 0.15s ease,
+              border-color 0.15s ease;
 }
 
 .writing-btn:hover {
-  background: #ededed;
-  color: #333;
+  background: #ff6719;
+  color: #ffffff;
+  border-color: #ff6719;
 }
