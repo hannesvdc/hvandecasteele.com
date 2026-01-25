@@ -130,12 +130,14 @@ function render(items) {
   } catch (e) {
     console.warn("Blog feed failed:", e);
   }
+console.log( blog )
 
   try {
     sub = await fetchSubstackFeed();
   } catch (e) {
     console.warn("Substack feed failed:", e);
   }
+  console.log( sub )
 
   const merged = mergePosts(blog, sub);
 
