@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 
-const BLOG_FEED = "/blog/feed.xml";
+const BLOG_FEED = "https://hvandecasteele.com/blog/feed.xml";
 const SUBSTACK_FEED = "https://substack.com/@hannesvdc/feed.xml";
 const OUTFILE = "assets/latest.json";
 const MAX_ITEMS = 5;
