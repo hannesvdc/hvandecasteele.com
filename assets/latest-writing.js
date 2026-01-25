@@ -2,6 +2,7 @@ const MAX_ITEMS = 5;
 
 function parseRSS(xmlText) {
   const xml = new DOMParser().parseFromString(xmlText, "text/xml");
+  
   return [...xml.querySelectorAll("item")].map(item => ({
     title: item.querySelector("title")?.textContent?.trim() ?? "(untitled)",
     link: item.querySelector("link")?.textContent?.trim() ?? "#",
@@ -12,6 +13,7 @@ function parseRSS(xmlText) {
 
 async function fetchBlogFeed() {
   const r = await fetch("/blog/feed.xml");
+  console.log(r)
   if (!r.ok) throw new Error(`Blog feed HTTP ${r.status}`);
   const text = await r.text();
   return parseRSS(text).map(x => ({ ...x, source: "blog" }));
@@ -100,7 +102,7 @@ function render(items) {
     article.className = "writing-item";
 
     // Show the orange Substack button ONLY if there is a blog canonical link
-    const showSubstackButton = Boolean(it.blog_url && it.substack_url);
+    const showSubstackButton = Boolean( it.substack_url );
 
     article.innerHTML = `
       <a class="writing-main" href="${it.url}">
