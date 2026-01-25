@@ -273,3 +273,129 @@ mjx-container[display="true"] {
   font-size: 0.70em !important;
 }
 
+
+.text-container {
+    position: relative;
+    padding-left: 8vw; 
+    margin-left: 8vw;
+    border-left: none; /* No continuous line */
+}
+
+/* Timeline Container */
+.timeline {
+    position: relative;
+    padding-left: 15vw; 
+    margin-left: 8vw;
+    border-left: none; /* No continuous line */
+}
+
+/* Positioning Timeline Circles */
+.timeline-icon {
+    position: absolute;
+    left: 195px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border: 3px solid #0073e6;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* Adding Connecting Lines */
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.timeline-item:last-child:before {
+    display: none;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Timeline Dot */
+.timeline-icon {
+    position: absolute;
+    left: -13px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border: 3px solid #0073e6;
+    border-radius: 50%;
+}
+
+/* Timeline Content */
+.timeline-content {
+    max-width: 1200px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    transition: transform 0.2s ease;
+    margin-left: 50px; /* Pushes cards more to the right */
+    width:90%;
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-content h3 {
+    font-size: 22px;
+    color: #444;
+    margin: 0 0 5px;
+    font-weight: bold;
+}
+
+.timeline-content h4 {
+    font-size: 20px;
+    color: #777;
+    margin: 0 0 10px;
+    font-weight: normal;
+}
+
+.timeline-content p {
+    font-size: 16px;
+    color: #555;
+    margin: 0 0 15px;
+}
+
+.timeline-content ul {
+    text-align: left;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.timeline-content ul li {
+    text-align: left;
+    color: #444;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200) {
+    .experience-section {
+        padding: 10px;
+    }
+
+    .timeline {
+        padding-left: 20px;
+    }
+
+    .timeline-item {
+        padding: 10px 0 10px 30px;
+    }
+
+    .timeline-content {
+        padding: 15px;
+    }
+
+    .timeline-icon {
+        left: -10px;
+    }
+}
