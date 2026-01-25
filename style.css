@@ -303,10 +303,17 @@ mjx-container[display="true"] {
 
 /* Timeline Container */
 .timeline {
-  --gutter: clamp(180px, 15vw, 260px); /* space reserved for dots+line */
+  --blue: #0073e6;
+  --gutter: 70px;                 /* width reserved for line + dots */
+  --line: 2px;
+  --dot: 14px;
+  --dotBorder: 3px;
+
   position: relative;
-  padding-left: var(--gutter);
-  margin-left: clamp(80px, 8vw, 160px);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;                      /* space between items */
+  margin-left: clamp(20px, 6vw, 120px);
 }
 
 /* The vertical line */
@@ -315,28 +322,17 @@ mjx-container[display="true"] {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: calc(var(--gutter) - 22px);  /* aligns with dots */
-    width: 2px;
-    background-color: #0073e6;
+    left: calc(var(--gutter) / 2);  /* aligns with dots */
+    width: var(--line);
+    background-color: var(--blue);
 }
 
-/* Positioning Timeline Circles */
-.timeline-icon {
-    position: absolute;
-    left: calc(var(--gutter) - 32px);  /* dot center sits on spine */
-    top: 22px;
-    width: 14px;
-    height: 14px;
-    background: white;
-    border: 3px solid #0073e6;
-    border-radius: 50%;
-    z-index: 2;                  /* above the line */
-}
-
-/* Adding Connecting Lines */
+/* Each item becomes a 2-column grid: gutter | content */
 .timeline-item {
-    position: relative;
-    margin-bottom: 50px;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+  align-items: start;
 }
 
 .timeline-item:last-child:before {
@@ -357,6 +353,19 @@ mjx-container[display="true"] {
     background: white;
 }
 
+/* Dot sits in gutter, centered on the line */
+.timeline-icon {
+  grid-column: 1;
+  justify-self: center;
+  margin-top: 22px;               /* aligns dot with top of card content */
+  width: var(--dot);
+  height: var(--dot);
+  background: #fff;
+  border: var(--dotBorder) solid var(--blue);
+  border-radius: 50%;
+  z-index: 2;                      /* above the line */
+  box-sizing: content-box;
+}
 
 /* Timeline Content */
 .timeline-content {
