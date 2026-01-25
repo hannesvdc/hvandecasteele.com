@@ -1,97 +1,65 @@
 const MAX_ITEMS = 5;
 
-function parseRSS(xmlText) {
-  const xml = new DOMParser().parseFromString(xmlText, "text/xml");
+// ---------- Fetchers ----------
+async function fetchBlogLatestJson() {
+  const r = await fetch("/blog/latest.json", { cache: "no-store" });
+  if (!r.ok) throw new Error(`Blog JSON HTTP ${r.status}`);
+  const j = await r.json();
 
-  return [...xml.querySelectorAll("entry")].map(item => ({
-    title: item.querySelector("title")?.textContent?.trim() ?? "(untitled)",
-    link: item.querySelector("link")?.textContent?.trim() ?? "#",
-    date: new Date(item.querySelector("published")?.textContent ?? Date.now()),
-    description: item.querySelector("description")?.textContent?.trim() ?? ""
+  // Normalize to a common schema
+  return (j || []).map(p => ({
+    title: p.title,
+    url: p.url,                         // canonical click target
+    date: new Date(p.date),
+    substack_url: (p.substack_url || "").trim() || null,
+    source: "blog"
   }));
 }
 
-async function fetchBlogFeed() {
-  const r = await fetch("/blog/feed.xml");
-  console.log(r)
-  if (!r.ok) throw new Error(`Blog feed HTTP ${r.status}`);
-  const text = await r.text();
-  return parseRSS(text).map(x => ({ ...x, source: "blog" }));
-}
-
-async function fetchSubstackFeed() {
-  const url = "https://api.rss2json.com/v1/api.json?rss_url=" +
+async function fetchSubstackLatest() {
+  const proxy =
+    "https://api.rss2json.com/v1/api.json?rss_url=" +
     encodeURIComponent("https://hannesvdc.substack.com/feed");
 
-  const r = await fetch(url);
+  const r = await fetch(proxy, { cache: "no-store" });
+  if (!r.ok) throw new Error(`rss2json HTTP ${r.status}`);
   const j = await r.json();
+
   return (j.items || []).map(it => ({
-    title: it.title,
-    link: it.link,
-    date: new Date(it.pubDate).toISOString(),
+    title: (it.title || "(untitled)").trim(),
+    url: it.link || "#",               // canonical click target (Substack)
+    date: new Date(it.pubDate || Date.now()),
+    substack_url: it.link || null,     // always exists for Substack posts
     source: "substack"
   }));
 }
 
-// Normalize titles so "Part 1", punctuation, etc. don’t break matching
-function normTitle(t) {
-  return (t || "")
-    .toLowerCase()
-    .replace(/&amp;/g, "&")
-    .replace(/\bpart\s*i\b/g, "part 1")
-    .replace(/\bpart\s*ii\b/g, "part 2")
-    .replace(/\bpart\s*iii\b/g, "part 3")
-    .replace(/[^\w\s]/g, "")    // remove punctuation
-    .replace(/\s+/g, " ")
-    .trim();
-}
+// ---------- Merge / Dedupe ----------
 
-// Merge feeds; prefer blog for main link when both exist
-function mergePosts(blogItems, substackItems) {
-  const byTitle = new Map();
+// For dedupe, we use the explicit blog substack_url mapping as the strongest key.
+// That avoids brittle title matching.
+function merge(blogItems, subItems) {
+  const out = [];
 
-  // Seed with blog posts (canonical)
+  // 1) Add blog posts first (they define canonical URLs)
+  const substackUrlsInBlog = new Set();
   for (const b of blogItems) {
-    byTitle.set(normTitle(b.title), {
-      title: b.title,
-      date: b.date,
-      description: b.description || "",
-      url: b.link,            // title click target
-      blog_url: b.link,
-      substack_url: null
-    });
+    if (b.substack_url) substackUrlsInBlog.add(b.substack_url);
+    out.push(b);
   }
 
-  // Add/attach Substack posts
-  for (const s of substackItems) {
-    const key = normTitle(s.title);
-
-    if (byTitle.has(key)) {
-      const x = byTitle.get(key);
-      x.substack_url = s.link;
-
-      // Use the more recent date (Substack may be newer than blog or vice versa)
-      x.date = (new Date(x.date) > new Date(s.date)) ? x.date : s.date;
-
-      // Keep blog description if present; else allow substack description
-      if (!x.description && s.description) x.description = s.description;
-
-      byTitle.set(key, x);
-    } else {
-      // Substack-only post
-      byTitle.set(key, {
-        title: s.title,
-        date: s.date,
-        description: s.description || "",
-        url: s.link,           // title click goes to substack
-        blog_url: null,
-        substack_url: s.link
-      });
+  // 2) Add substack posts that are NOT mirrored by the blog (substack_url matches)
+  for (const s of subItems) {
+    if (s.substack_url && substackUrlsInBlog.has(s.substack_url)) {
+      continue; // skip duplicates of blog posts
     }
+    out.push(s);
   }
 
-  return [...byTitle.values()];
+  return out;
 }
+
+// ---------- Render ----------
 
 function render(items) {
   const root = document.getElementById("latest-writing");
@@ -101,47 +69,50 @@ function render(items) {
     const article = document.createElement("article");
     article.className = "writing-item";
 
-    // Show the orange Substack button ONLY if there is a blog canonical link
-    const showSubstackButton = Boolean( it.substack_url );
+    const dateStr = it.date instanceof Date && !isNaN(it.date)
+      ? it.date.toLocaleDateString("en-US", { month: "short", year: "numeric" })
+      : "";
 
     article.innerHTML = `
-      <a class="writing-main" href="${it.url}">
-        <h3 class="writing-title">${it.title}</h3>
+      <a class="writing-title" href="${it.url}">
+        ${it.title}
       </a>
-      ${
-        showSubstackButton
-          ? `<div class="writing-actions">
-               <a class="writing-btn" href="${it.substack_url}" target="_blank" rel="noopener">
-                 Read on Substack
-               </a>
-             </div>`
-          : ""
-      }
+      ${dateStr ? `<div class="writing-meta">${dateStr}</div>` : ""}
+
+      ${it.substack_url ? `
+        <div class="writing-actions">
+          <a class="writing-btn" href="${it.substack_url}" target="_blank" rel="noopener">
+            Read on Substack
+          </a>
+        </div>
+      ` : ""}
     `;
 
     root.appendChild(article);
   }
 }
 
+// ---------- Main ----------
+
 (async function () {
   let blog = [];
   let sub = [];
 
   try {
-    blog = await fetchBlogFeed();
+    blog = await fetchBlogLatestJson();
   } catch (e) {
-    console.warn("Blog feed failed:", e);
+    console.warn("Blog latest.json failed:", e);
   }
-console.log( blog )
 
   try {
-    sub = await fetchSubstackFeed();
+    sub = await fetchSubstackLatest();
   } catch (e) {
     console.warn("Substack feed failed:", e);
   }
-  console.log( sub )
 
-  const merged = mergePosts(blog, sub);
+  const merged = merge(blog, sub)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, MAX_ITEMS);
 
   if (merged.length === 0) {
     document.getElementById("latest-writing").innerHTML =
@@ -149,9 +120,5 @@ console.log( blog )
     return;
   }
 
-  const newest = merged
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, MAX_ITEMS);
-
-  render(newest);
+  render(merged);
 })();
