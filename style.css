@@ -303,9 +303,10 @@ mjx-container[display="true"] {
 
 /* Timeline Container */
 .timeline {
-    position: relative;
-    padding-left: clamp(180px, 15vw, 260px);
-    margin-left: clamp(80px, 8vw, 160px);
+  --gutter: clamp(180px, 15vw, 260px); /* space reserved for dots+line */
+  position: relative;
+  padding-left: var(--gutter);
+  margin-left: clamp(80px, 8vw, 160px);
 }
 
 /* The vertical line */
@@ -314,7 +315,7 @@ mjx-container[display="true"] {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 12px;                  /* center of dots */
+    left: calc(var(--gutter) - 22px);  /* aligns with dots */
     width: 2px;
     background-color: #0073e6;
 }
@@ -322,7 +323,7 @@ mjx-container[display="true"] {
 /* Positioning Timeline Circles */
 .timeline-icon {
     position: absolute;
-    left: 5px;                   /* centers dot on the line */
+    left: calc(var(--gutter) - 32px);  /* dot center sits on spine */
     top: 22px;
     width: 14px;
     height: 14px;
@@ -331,17 +332,6 @@ mjx-container[display="true"] {
     border-radius: 50%;
     z-index: 2;                  /* above the line */
 }
-/* .timeline-icon {
-    position: absolute;
-    left: 195px;
-    top: 20px;
-    width: 14px;
-    height: 14px;
-    background: white;
-    border: 3px solid #0073e6;
-    border-radius: 50%;
-    z-index: 2;
-} */
 
 /* Adding Connecting Lines */
 .timeline-item {
@@ -367,17 +357,6 @@ mjx-container[display="true"] {
     background: white;
 }
 
-/* Timeline Dot */
-/* .timeline-icon {
-    position: absolute;
-    left: -13px;
-    top: 20px;
-    width: 14px;
-    height: 14px;
-    background: white;
-    border: 3px solid #0073e6;
-    border-radius: 50%;
-} */
 
 /* Timeline Content */
 .timeline-content {
