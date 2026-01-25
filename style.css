@@ -505,10 +505,7 @@ mjx-container[display="true"] {
   color: #2f6fbe;
 }
 
-
-/* Meta info (date · source) */
 .writing-meta {
-  margin-top: 6px;
   font-size: 14px;
   color: #888;
 }
@@ -524,7 +521,7 @@ mjx-container[display="true"] {
 
 .writing-btn {
   display: inline-block;
-  padding: 5px 14px;
+  padding: 14px;
   font-size: 13px;
   border-radius: 20px;
   background: #fff3ec;
