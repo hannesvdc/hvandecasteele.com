@@ -1,5 +1,3 @@
-const BLOG_FEED = "/blog/feed.xml";
-const SUBSTACK_FEED = "https://substack.com/@hannesvdc/feed.xml";
 const MAX_ITEMS = 5;
 
 function parseRSS(xmlText) {
@@ -12,10 +10,24 @@ function parseRSS(xmlText) {
   }));
 }
 
-async function fetchFeed(url) {
+async function fetchBlogFeed() {
+  const r = await fetch("/blog/feed.xml");
+  const text = await r.text();
+  return parseRssXml(text, "blog");
+}
+
+async function fetchSubstackFeed() {
+  const url = "https://api.rss2json.com/v1/api.json?rss_url=" +
+    encodeURIComponent("https://hannesvdc.substack.com/feed");
+
   const r = await fetch(url);
-  if (!r.ok) throw new Error(`Failed to fetch ${url}`);
-  return parseRSS(await r.text());
+  const j = await r.json();
+  return (j.items || []).map(it => ({
+    title: it.title,
+    link: it.link,
+    date: new Date(it.pubDate).toISOString(),
+    source: "substack"
+  }));
 }
 
 function render(items) {
