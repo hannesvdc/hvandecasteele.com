@@ -5,3 +5,5 @@ permalink: /blog/:title/
 baseurl: ""
 plugins:
   - jekyll-feed
+feed:
+  path: blog/feed.xml
