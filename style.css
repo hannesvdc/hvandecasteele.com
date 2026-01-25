@@ -56,18 +56,8 @@ h2 {
 
 p {
   font-size: 18px;
-  line-height: 1.6;
   max-width: 800px;
   margin: 0 auto;
-}
-
-i {
-    font-size: 40px;
-    color: blue;
-    margin: 10px;
-}
-i:hover {
-    color: darkblue;
 }
 
 footer {
