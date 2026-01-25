@@ -64,9 +64,8 @@ footer {
 
 p.copyright {
   width: 100%;
- line-height: 10px;
- text-align: center;
-  bottom:0;
+  line-height: 10px;
+  text-align: center;
 }
 
 body {
@@ -82,9 +81,6 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background: none;
-  box-shadow: none;
-  border: none;
 }
 
 h1 {
@@ -186,7 +182,7 @@ li {
   margin-top: 0.4em;
 }
 
-blog-wrap {
+.blog-wrap {
   max-width: 980px;
   margin: 48px auto;
   padding: 0 22px;
@@ -339,18 +335,6 @@ mjx-container[display="true"] {
     margin-bottom: 0;
 }
 
-/* Optional: stop the line after the last dot */
-/* .timeline-item:last-child .timeline-icon::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: calc(var(--dot) + 2 * var(--dotBorder));
-  transform: translateX(-50%);
-  width: var(--line);
-  height: 9999px;
-  background: #f3f3f3;            /* match your section gray background */
-/*} */
-
 /* Dot sits in gutter, centered on the line */
 .timeline-icon {
   grid-column: 1;
@@ -416,11 +400,11 @@ mjx-container[display="true"] {
 }
 
 /* Kill any legacy timeline pseudo-elements from older CSS */
-.timeline-item::before,
+/*.timeline-item::before,
 .timeline-item::after {
   content: none !important;
   display: none !important;
-}
+}*/
 
 /* Remove legacy responsive rules that reposition dots */
 @media (max-width: 1200px) {
