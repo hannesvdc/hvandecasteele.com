@@ -21,7 +21,7 @@ jobs:
           node-version: "20"
 
       - name: Generate assets/latest.json
-        run: node scripts/build-latest-writing.mjs
+        run: node assets/build-latest-writing.mjs
 
       - name: Commit latest.json if changed
         run: |
