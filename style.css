@@ -56,8 +56,18 @@ h2 {
 
 p {
   font-size: 18px;
+  line-height: 1.6;
   max-width: 800px;
   margin: 0 auto;
+}
+
+i {
+    font-size: 40px;
+    color: blue;
+    margin: 10px;
+}
+i:hover {
+    color: darkblue;
 }
 
 footer {
@@ -469,13 +479,6 @@ mjx-container[display="true"] {
     line-height: 1.3;
     margin-bottom: 4px;
 }
-
-/* Kill any legacy timeline pseudo-elements from older CSS */
-/*.timeline-item::before,
-.timeline-item::after {
-  content: none !important;
-  display: none !important;
-}*/
 
 /* Remove legacy responsive rules that reposition dots */
 @media (max-width: 1200px) {
