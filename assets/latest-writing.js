@@ -51,6 +51,7 @@ function render(items) {
 
   try {
     const blog = await fetchFeed(BLOG_FEED);
+    print( blog )
     items.push(...blog.map(x => ({ ...x, source: "blog" })));
   } catch (e) {
     console.warn("Blog feed failed:", e);
