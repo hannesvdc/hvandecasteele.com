@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "PDE-Constrained Optimization"
+date: 2026-01-17
+substack_url: "https://hannesvdc.substack.com/p/optimizing-with-physics-as-a-constraint"
 ---
 
 PDE-constrained optimization provides a rigorous framework for optimizing functionals subject to partial differential equation (PDE) constraints. It is one of those techniques that appears deceptively simple from a distance but actually becomes increasingly subtle and complicated once you dive into the details. It is one of the greatest tools that modern computational science has to offer, yet few people truly understand the underlying mathematics and complexity. While PDE-constrained optimization is most commonly associated with shape and topology optimization, its potential for control, design, and yield optimization in physical and chemical systems is, in my view, significantly underappreciated.
