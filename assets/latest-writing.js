@@ -2,11 +2,11 @@ const MAX_ITEMS = 5;
 
 function parseRSS(xmlText) {
   const xml = new DOMParser().parseFromString(xmlText, "text/xml");
-  
-  return [...xml.querySelectorAll("item")].map(item => ({
+
+  return [...xml.querySelectorAll("entry")].map(item => ({
     title: item.querySelector("title")?.textContent?.trim() ?? "(untitled)",
     link: item.querySelector("link")?.textContent?.trim() ?? "#",
-    date: new Date(item.querySelector("pubDate")?.textContent ?? Date.now()),
+    date: new Date(item.querySelector("published")?.textContent ?? Date.now()),
     description: item.querySelector("description")?.textContent?.trim() ?? ""
   }));
 }
