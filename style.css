@@ -343,14 +343,16 @@ mjx-container[display="true"] {
     margin-bottom: 0;
 }
 
-.timeline-item:last-child::after {
-    content: "";
-    position: absolute;
-    left: 12px;
-    top: 28px;
-    bottom: -50px;
-    width: 2px;
-    background: white;
+/* Optional: stop the line after the last dot */
+.timeline-item:last-child .timeline-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(var(--dot) + 2 * var(--dotBorder));
+  transform: translateX(-50%);
+  width: var(--line);
+  height: 9999px;
+  background: #f3f3f3;            /* match your section gray background */
 }
 
 /* Dot sits in gutter, centered on the line */
@@ -367,20 +369,21 @@ mjx-container[display="true"] {
   box-sizing: content-box;
 }
 
-/* Timeline Content */
+/* Card sits in column 2 */
 .timeline-content {
-    max-width: 1200px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 30px 40px;
-    transition: transform 0.2s ease;
-    margin-left: 50px; /* Pushes cards more to the right */
-    width: 90%;
+  grid-column: 2;
+  max-width: 1200px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px 40px;
+  width: min(90%, 1200px);
+  margin-left: 0;                 /* IMPORTANT: remove your old margin-left */
+  transition: transform 0.2s ease;
 }
 
 .timeline-content:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .timeline-content h3 {
