@@ -6,7 +6,7 @@ date: 2026-01-25
 substack_url: "https://hannesvdc.substack.com/p/understanding-physics-informed-learning"
 ---
 
-Physics-informed machine learning is a beautiful idea: learning a neural network that satisfies first-principles physics \textit{automatically}. It replaces supervised learning with a fundamentally different approach. In supervised learning, we start from large datasets that contain known input-output relations $(x_i, d_i)$ and minimize either the averaged squared deviation
+Physics-informed machine learning is a beautiful idea: learning a neural network that satisfies first-principles physics *automatically*. It replaces supervised learning with a fundamentally different approach. In supervised learning, we start from large datasets that contain known input-output relations $(x_i, d_i)$ and minimize either the averaged squared deviation
 
 $$
     L(\theta) = \frac{1}{N} \sum_{i=1}^N \left(\text{NN}_{\theta}(x_i) - d_i\right)^2
