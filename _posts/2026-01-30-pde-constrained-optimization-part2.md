@@ -8,10 +8,10 @@ substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimiza
 In [Part 1 of this series](/blog/pde-constrained-optimization-part2) I introduced the deep mathematics and impactful applications behind PDE-constrained optimization. If you’re interested in how this technology and its adjoint-based underpinnings work, be sure to check it out! Here in Part 2 I will go through the real-life problem of optimizing the yield of a chemical reactor. We will build a first principles model and then use PDE-constrained optimization to increase the so-called conversion ratio. I will provide lots of figures and hopefully a strong appreciation of the strength and breadth of PDE-constrained optimization!
 
 ## The Reactor Model
-Let’s return to the gaseous CO to O₂ converter, but in more detail this time. Figure 1 shows the physical setup. A mix of CO, O₂ and inert gasses (mainly N₂) enters the reactor on the left at a given inlet temperature $T_{in}$ and reacts via
+Let’s return to the gaseous $CO$ to $O_2$ converter, but in more detail this time. Figure 1 shows the physical setup. A mix of $CO$, $O_2$ and inert gasses (mainly N₂) enters the reactor on the left at a given inlet temperature $T_{in}$ and reacts via
 
 $$
-2 \ CO + O₂ \to 2 CO_2
+2 \ CO + O_2 \to 2 CO_2
 $$
 
 The (local) reaction rate is given by the Arrhenius law –and is very sensitive to the local temperature $T(z)$ because the activation energy required to initiate the reaction is very high: $E_aa = 80,000 J / \text{mol}$. Here, $R = 8.314 J / (\text{mol} \ K)$ is the ideal gas constant and $k_0 = 10^{11} \text{mol} / (m^2 \ s)$ is the baseline reaction rate.
@@ -37,7 +37,7 @@ The interplay of transport (convection), diffusion, reaction kinetics, and heat 
 
 1. $C_{CO}$, the concentration of toxic carbon monoxide
 
-2. $C_{O₂}$, the oxygen concentration produced as a reaction byproduct
+2. $C_{O_2}$, the oxygen concentration produced as a reaction byproduct
 
 3. $T(z)$, the local temperature, which strongly influences the reaction rate.
 
@@ -60,11 +60,11 @@ $$
 
 Let's dig into what each of these equations represent. They follow directly from classical chemical reaction engineering. All three governing equations are written in flux form, which makes them easier to interpret. It is intuitive to imagine a small region around each point $z$. Each equation expresses a local conservation law: the rate of change of the total flux along the reactor must be balanced by sources or sinks due to chemical reaction or heat exchange.
 
-The first equation represents CO mas balance. CO is transported downstream by the gas flow and simultaneously spreads due to diffusion with coefficient $D_{CO}$. These two terms together define the total flux of CO. As the gas flows through the catalust, CO is consumed by the surface reaction at a rate $r_{\text{local}}$. The differential states that any decrease in the CO flux in a tiny region must be exactly accounted for by the amount of CO that reacts away within that region. The same applies to oxygen. It also travels to the right at speed $u_g$ and diffuses with coefficient $D_{O_2}$, but reacts away at only half the rate because two CO are needed to react with one O₂ each species is transported downstream by convection at velocity u_g, spreads out by diffusion, and is locally consumed by the surface reaction. 
+The first equation represents CO mas balance. CO is transported downstream by the gas flow and simultaneously spreads due to diffusion with coefficient $D_{CO}$. These two terms together define the total flux of CO. As the gas flows through the catalust, CO is consumed by the surface reaction at a rate $r_{\text{local}}$. The differential states that any decrease in the CO flux in a tiny region must be exactly accounted for by the amount of CO that reacts away within that region. The same applies to oxygen. It also travels to the right at speed $u_g$ and diffuses with coefficient $D_{O_2}$, but reacts away at only half the rate because two CO are needed to react with one O₂ each species is transported downstream by convection at velocity $u_g$, spreads out by diffusion, and is locally consumed by the surface reaction. 
 
 The third equation represents energy conservation along the reactor. Thermal energy is transported downstream with the flowing gas and redistributed by heat dispersion. Note that, as the gas molecules flow, the associated temperature profile $T(z)$ will also move to the right. These mechanisms together define the heat flux. Energy is generated locally by the exothermic oxidation reaction. $\Delta H$ is the positive enthalpy released, $\rho$ is the gas density, and $C_p$ is its specific heat capacity. Heat is simultaneously removed through the reactor wall to the surroundings - proportional to the temperature difference with the wall. This is the last term in the thrid equation. The balance between these competing effects determines the temperature profile and causes phenomena such as hot spots and thermal runaway.
 
-The catalytic surface reaction rate $r_{\text{local}}$ is harder to quantify because it depends on the precise atomic configuration. It is proportional to the probability that both a CO and O₂ molecule occupy sites near a catalyst molecule. A classical macroscopic formula is the Langmuir–Hinshelwood rate law
+The catalytic surface reaction rate $r_{\text{local}}$ is harder to quantify because it depends on the precise atomic configuration. It is proportional to the probability that both a CO and $O_2$ molecule occupy sites near a catalyst molecule. A classical macroscopic formula is the Langmuir–Hinshelwood rate law
 
 $$
 r_{\text{local}}(T, C_{\mathrm{CO}}, C_{\mathrm{O_2}}) = k_0 \exp\!\left(-\frac{E_a}{R\,T}\right)\,
