@@ -73,7 +73,7 @@ r_{\text{local}}(T, C_{\mathrm{CO}}, C_{\mathrm{O_2}}) = k_0 \exp\!\left(-\frac{
 \right)^2}.
 $$
 
-Where we recognize the original Arrhenius reaction rate as the prefactor.
+Where we recognize the original Arrhenius reaction rate as the first factor, while the second factor comes from catalytic kinetics. Find out more about the Langmuir-Hinshelwood rate law [here](https://en.wikipedia.org/wiki/Reactions_on_surfaces).
 
 ## Temperature Spikes and Hysteresis
 Before optimizing, let’s run some simulations of these partial differential equations – just to get a feeling for the sensitivity of the reactor to changes in the inlet temperature, and their effects on the ultimate conversion ratio. Figure 2 displays the temperature $T(z)$ and concentration of $\text{CO}$ throughout the reactor for two inlet temperatures: 750K and 800K.
