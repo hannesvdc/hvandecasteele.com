@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PDE-Constrained Optimization Part 2: Optimizing a Chemical Reactor"
+title: "PDE-Constrained Optimization Part 2: Optimizing the Yield of a Chemical Reactor"
 date: 2026-01-30
 substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimization-part"
 ---
@@ -8,7 +8,7 @@ substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimiza
 In [Part 1 of this series](/blog/pde-constrained-optimization-part2) I introduced the deep mathematics and impactful applications behind PDE-constrained optimization. If you’re interested in how this technology and its adjoint-based underpinnings work, be sure to check it out! Here in Part 2 I will go through the real-life problem of optimizing the yield of a chemical reactor. We will build a first principles model and then use PDE-constrained optimization to increase the so-called conversion ratio. I will provide lots of figures and hopefully a strong appreciation of the strength and breadth of PDE-constrained optimization!
 
 ## The Reactor Model
-Let’s return to the gaseous $\text{CO}$ to $O_2$ converter, but in more detail this time. Figure 1 shows the physical setup. A mix of $CO$, $O_2$ and inert gasses (mainly N₂) enters the reactor on the left at a given inlet temperature $T_{in}$ and reacts via
+Let’s return to the gaseous $\text{CO}$ to $O_2$ converter, but in more detail this time. Figure 1 shows the physical setup. A mix of $\text{CO}$, $O_2$ and inert gasses (mainly N₂) enters the reactor on the left at a given inlet temperature $T_{in}$ and reacts via
 
 $$
 2 \ \text{CO} + O_2 \to 2 CO_2
@@ -26,7 +26,7 @@ The (local) reaction rate is given by the Arrhenius law –and is very sensitive
 </figure>
 The incoming air molecules also have an average (superficial) velocity $u_g$. This velocity matters because when $u_g$ is high, most of the reaction will take place downstream. If $u_g$ is low, most of the reaction will happen at the inlet, increasing the chances of a dangerous temperature spike occurring.
 
-As the $\text{CO}$ flows through the tube, it reacts on the catalyst pellets. The gaseous $\text{CO}$ is gradually converted to harmless O₂ and to solid carbon that stays at the bottom of the reactor. Increasing the amount of catalyst boosts the conversion but also raises the local temperature. The reaction is exothermic, so heat is released as $\text{CO}$ converts. Fortunately there are also two mitigating effects that counteract thermal runaway:
+As the $\text{CO}$ flows through the tube, it reacts on the catalyst pellets. The gaseous $\text{CO}$ is gradually converted to harmless $O_2$ and to solid carbon that stays at the bottom of the reactor. Increasing the amount of catalyst boosts the conversion but also raises the local temperature. The reaction is exothermic, so heat is released as $\text{CO}$ converts. Fortunately there are also two mitigating effects that counteract thermal runaway:
 
 Excess heat leaves the reactor through its outer wall at a rate of $h_w [W / m^2 K]$. If $T_{\text{wall}}$ is the temperature of the reactor wall (here $500$ K), the local temperature inside will decrease at a rate of $h_w P/A (T(z) – T_{\text{wall}})$. Important is the cross-sectional perimeter-over-area ratio $P/A$. It indicates how much of the gas is able to lose heat. Typical cylindrical reactors have a small cross-sectional ratio, in fact, circles minimize it!
 
@@ -60,16 +60,16 @@ $$
 
 Let's dig into what each of these equations represent. They follow directly from classical chemical reaction engineering. All three governing equations are written in flux form, which makes them easier to interpret. It is intuitive to imagine a small region around each point $z$. Each equation expresses a local conservation law: the rate of change of the total flux along the reactor must be balanced by sources or sinks due to chemical reaction or heat exchange.
 
-The first equation represents $\text{CO}$ mas balance. $\text{CO}$ is transported downstream by the gas flow and simultaneously spreads due to diffusion with coefficient $D_{CO}$. These two terms together define the total flux of $\text{CO}$. As the gas flows through the catalust, $\text{CO}$ is consumed by the surface reaction at a rate $r_{\text{local}}$. The differential states that any decrease in the $\text{CO}$ flux in a tiny region must be exactly accounted for by the amount of $\text{CO}$ that reacts away within that region. The same applies to oxygen. It also travels to the right at speed $u_g$ and diffuses with coefficient $D_{O_2}$, but reacts away at only half the rate because two $\text{CO}$ are needed to react with one $O_2$ each species is transported downstream by convection at velocity $u_g$, spreads out by diffusion, and is locally consumed by the surface reaction. 
+The first equation represents $\text{CO}$ mas balance. $\text{CO}$ is transported downstream by the gas flow and simultaneously spreads due to diffusion with coefficient $D_{\text{CO}}$. These two terms together define the total flux of $\text{CO}$. As the gas flows through the catalust, $\text{CO}$ is consumed by the surface reaction at a rate $r_{\text{local}}$. The differential states that any decrease in the $\text{CO}$ flux in a tiny region must be exactly accounted for by the amount of $\text{CO}$ that reacts away within that region. The same applies to oxygen. It also travels to the right at speed $u_g$ and diffuses with coefficient $D_{O_2}$, but reacts away at only half the rate because two $\text{CO}$ are needed to react with one $O_2$ each species is transported downstream by convection at velocity $u_g$, spreads out by diffusion, and is locally consumed by the surface reaction. 
 
 The third equation represents energy conservation along the reactor. Thermal energy is transported downstream with the flowing gas and redistributed by heat dispersion. Note that, as the gas molecules flow, the associated temperature profile $T(z)$ will also move to the right. These mechanisms together define the heat flux. Energy is generated locally by the exothermic oxidation reaction. $\Delta H$ is the positive enthalpy released, $\rho$ is the gas density, and $C_p$ is its specific heat capacity. Heat is simultaneously removed through the reactor wall to the surroundings - proportional to the temperature difference with the wall. This is the last term in the thrid equation. The balance between these competing effects determines the temperature profile and causes phenomena such as hot spots and thermal runaway.
 
 The catalytic surface reaction rate $r_{\text{local}}$ is harder to quantify because it depends on the precise atomic configuration. It is proportional to the probability that both a $\text{CO}$ and $O_2$ molecule occupy sites near a catalyst molecule. A classical macroscopic formula is the Langmuir–Hinshelwood rate law
 
 $$
-r_{\text{local}}(T, C_{\mathrm{CO}}, C_{\mathrm{O_2}}) = k_0 \exp\!\left(-\frac{E_a}{R\,T}\right)\,
-\frac{ K_{\mathrm{CO}}\, C_{\mathrm{CO}} K_{\mathrm{O_2}}\, \sqrt{C_{\mathrm{O_2}}} }{
-\left(1 + K_{\mathrm{CO}}\, C_{\mathrm{CO}} + K_{\mathrm{O_2}}\, \sqrt{C_{\mathrm{O_2}}}
+r_{\text{local}}(T, C_{\text{CO}}, C_{O_2}) = k_0 \exp\!\left(-\frac{E_a}{R\,T}\right)\,
+\frac{ K_{\text{CO}}\, C_{\text{CO}} K_{O_2}\, \sqrt{C_{O_2}} }{
+\left(1 + K_{\text{CO}}\, C_{\text{CO}} + K_{O_2}\, \sqrt{C_{O_2}}
 \right)^2}.
 $$
 
@@ -106,7 +106,7 @@ Maximizing the conversion alone would push the optimizer straight onto the upper
 Balancing these competing objectives leads to the following optimization criterion
 
 $$
-\underset{a}{\min} \ J(a) = \frac{C_{CO}(\text{outlet})}{C_{CO}(\text{inlet})} + \gamma \int_{\text{inlet}}^{\text{outlet}} \max\left(T(z) - T_{\text{in}}, 0\right)
+\underset{a}{\min} \ J(a) = \frac{C_{\text{CO}}(\text{outlet})}{C_{\text{CO}}(\text{inlet})} + \gamma \int_{\text{inlet}}^{\text{outlet}} \max\left(T(z) - T_{\text{in}}, 0\right)
 $$
  
 In most setups, the inlet temperature is actually fixed. The optimization variable is the amount of catalyst $a(z)$ – which we assume constant along the reactor for now. Figure 4 shows the resulting bifurcation diagram as a function of a. The same hysteresis also occurs.
