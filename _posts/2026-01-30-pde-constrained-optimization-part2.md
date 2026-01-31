@@ -133,7 +133,7 @@ The optimized catalyst profile is shown in the final figure (Figure 5). The opti
   <img src="/images/blog/pde-adjoint/multi_zones.png"
        alt="Temperature profile.">
   <figcaption>
-   Figure 5: $\text{CO}$ concentration (top), temperature $T(z)$ (middle) and catalyst concentration $a(z)$ (bottom) for the optimal 5-zone catalyst solution. Most of the conversion happens at the inlet, and most of the catalyst should be put there. As the CO profile decreases sharply, there is little gain from placing much catalyst in the other zones.
+   Figure 5: $\text{CO}$ concentration (top), temperature $T(z)$ (middle) and catalyst concentration $a(z)$ (bottom) for the optimal 5-zone catalyst solution. Most of the conversion happens at the inlet, and most of the catalyst should be put there. As the $\text{CO}$ profile decreases sharply, there is little gain from placing much catalyst in the other zones.
   </figcaption>
 </figure>
 
