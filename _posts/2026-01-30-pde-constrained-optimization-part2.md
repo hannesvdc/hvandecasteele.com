@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PDE-Constrained Optimization Part 2"
+title: "PDE-Constrained Optimization Part 2: Optimizing a Chemical Reactor"
 date: 2026-01-30
 substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimization-part"
 ---
@@ -8,10 +8,10 @@ substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimiza
 In [Part 1 of this series](/blog/pde-constrained-optimization-part2) I introduced the deep mathematics and impactful applications behind PDE-constrained optimization. If you’re interested in how this technology and its adjoint-based underpinnings work, be sure to check it out! Here in Part 2 I will go through the real-life problem of optimizing the yield of a chemical reactor. We will build a first principles model and then use PDE-constrained optimization to increase the so-called conversion ratio. I will provide lots of figures and hopefully a strong appreciation of the strength and breadth of PDE-constrained optimization!
 
 ## The Reactor Model
-Let’s return to the gaseous $CO$ to $O_2$ converter, but in more detail this time. Figure 1 shows the physical setup. A mix of $CO$, $O_2$ and inert gasses (mainly N₂) enters the reactor on the left at a given inlet temperature $T_{in}$ and reacts via
+Let’s return to the gaseous $\text{CO}$ to $O_2$ converter, but in more detail this time. Figure 1 shows the physical setup. A mix of $CO$, $O_2$ and inert gasses (mainly N₂) enters the reactor on the left at a given inlet temperature $T_{in}$ and reacts via
 
 $$
-2 \ CO + O_2 \to 2 CO_2
+2 \ \text{CO} + O_2 \to 2 CO_2
 $$
 
 The (local) reaction rate is given by the Arrhenius law –and is very sensitive to the local temperature $T(z)$ because the activation energy required to initiate the reaction is very high: $E_aa = 80,000 J / \text{mol}$. Here, $R = 8.314 J / (\text{mol} \ K)$ is the ideal gas constant and $k_0 = 10^{11} \text{mol} / (m^2 \ s)$ is the baseline reaction rate.
@@ -26,7 +26,7 @@ The (local) reaction rate is given by the Arrhenius law –and is very sensitive
 </figure>
 The incoming air molecules also have an average (superficial) velocity $u_g$. This velocity matters because when $u_g$ is high, most of the reaction will take place downstream. If $u_g$ is low, most of the reaction will happen at the inlet, increasing the chances of a dangerous temperature spike occurring.
 
-As the CO flows through the tube, it reacts on the catalyst pellets. The gaseous CO is gradually converted to harmless O₂ and to solid carbon that stays at the bottom of the reactor. Increasing the amount of catalyst boosts the conversion but also raises the local temperature. The reaction is exothermic, so heat is released as CO converts. Fortunately there are also two mitigating effects that counteract thermal runaway:
+As the $\text{CO}$ flows through the tube, it reacts on the catalyst pellets. The gaseous $\text{CO}$ is gradually converted to harmless O₂ and to solid carbon that stays at the bottom of the reactor. Increasing the amount of catalyst boosts the conversion but also raises the local temperature. The reaction is exothermic, so heat is released as $\text{CO}$ converts. Fortunately there are also two mitigating effects that counteract thermal runaway:
 
 Excess heat leaves the reactor through its outer wall at a rate of $h_w [W / m^2 K]$. If $T_{\text{wall}}$ is the temperature of the reactor wall (here $500$ K), the local temperature inside will decrease at a rate of $h_w P/A (T(z) – T_{\text{wall}})$. Important is the cross-sectional perimeter-over-area ratio $P/A$. It indicates how much of the gas is able to lose heat. Typical cylindrical reactors have a small cross-sectional ratio, in fact, circles minimize it!
 
@@ -35,7 +35,7 @@ Diffusion transports heat across the reactor. Whenever there is a local temperat
 ## Governing Equations
 The interplay of transport (convection), diffusion, reaction kinetics, and heat loss to the reactor wall fully determines how the system evolves. To capture this behavior, we track three key fields along the reactor:
 
-1. $C_{CO}$, the concentration of toxic carbon monoxide
+1. $C_{\text{CO}}$, the concentration of toxic carbon monoxide
 
 2. $C_{O_2}$, the oxygen concentration produced as a reaction byproduct
 
@@ -60,11 +60,11 @@ $$
 
 Let's dig into what each of these equations represent. They follow directly from classical chemical reaction engineering. All three governing equations are written in flux form, which makes them easier to interpret. It is intuitive to imagine a small region around each point $z$. Each equation expresses a local conservation law: the rate of change of the total flux along the reactor must be balanced by sources or sinks due to chemical reaction or heat exchange.
 
-The first equation represents CO mas balance. CO is transported downstream by the gas flow and simultaneously spreads due to diffusion with coefficient $D_{CO}$. These two terms together define the total flux of CO. As the gas flows through the catalust, CO is consumed by the surface reaction at a rate $r_{\text{local}}$. The differential states that any decrease in the CO flux in a tiny region must be exactly accounted for by the amount of CO that reacts away within that region. The same applies to oxygen. It also travels to the right at speed $u_g$ and diffuses with coefficient $D_{O_2}$, but reacts away at only half the rate because two CO are needed to react with one O₂ each species is transported downstream by convection at velocity $u_g$, spreads out by diffusion, and is locally consumed by the surface reaction. 
+The first equation represents $\text{CO}$ mas balance. $\text{CO}$ is transported downstream by the gas flow and simultaneously spreads due to diffusion with coefficient $D_{CO}$. These two terms together define the total flux of $\text{CO}$. As the gas flows through the catalust, $\text{CO}$ is consumed by the surface reaction at a rate $r_{\text{local}}$. The differential states that any decrease in the $\text{CO}$ flux in a tiny region must be exactly accounted for by the amount of $\text{CO}$ that reacts away within that region. The same applies to oxygen. It also travels to the right at speed $u_g$ and diffuses with coefficient $D_{O_2}$, but reacts away at only half the rate because two $\text{CO}$ are needed to react with one $O_2$ each species is transported downstream by convection at velocity $u_g$, spreads out by diffusion, and is locally consumed by the surface reaction. 
 
 The third equation represents energy conservation along the reactor. Thermal energy is transported downstream with the flowing gas and redistributed by heat dispersion. Note that, as the gas molecules flow, the associated temperature profile $T(z)$ will also move to the right. These mechanisms together define the heat flux. Energy is generated locally by the exothermic oxidation reaction. $\Delta H$ is the positive enthalpy released, $\rho$ is the gas density, and $C_p$ is its specific heat capacity. Heat is simultaneously removed through the reactor wall to the surroundings - proportional to the temperature difference with the wall. This is the last term in the thrid equation. The balance between these competing effects determines the temperature profile and causes phenomena such as hot spots and thermal runaway.
 
-The catalytic surface reaction rate $r_{\text{local}}$ is harder to quantify because it depends on the precise atomic configuration. It is proportional to the probability that both a CO and $O_2$ molecule occupy sites near a catalyst molecule. A classical macroscopic formula is the Langmuir–Hinshelwood rate law
+The catalytic surface reaction rate $r_{\text{local}}$ is harder to quantify because it depends on the precise atomic configuration. It is proportional to the probability that both a $\text{CO}$ and $O_2$ molecule occupy sites near a catalyst molecule. A classical macroscopic formula is the Langmuir–Hinshelwood rate law
 
 $$
 r_{\text{local}}(T, C_{\mathrm{CO}}, C_{\mathrm{O_2}}) = k_0 \exp\!\left(-\frac{E_a}{R\,T}\right)\,
@@ -76,17 +76,17 @@ $$
 Where we recognize the original Arrhenius reaction rate as the prefactor.
 
 ## Temperature Spikes and Hysteresis
-Before optimizing, let’s run some simulations of these partial differential equations – just to get a feeling for the sensitivity of the reactor to changes in the inlet temperature, and their effects on the ultimate conversion ratio. Figure 2 displays the temperature $T(z)$ and concentration of CO throughout the reactor for two inlet temperatures: 750K and 800K.
+Before optimizing, let’s run some simulations of these partial differential equations – just to get a feeling for the sensitivity of the reactor to changes in the inlet temperature, and their effects on the ultimate conversion ratio. Figure 2 displays the temperature $T(z)$ and concentration of $\text{CO}$ throughout the reactor for two inlet temperatures: 750K and 800K.
 
 <figure>
   <img src="/images/blog/pde-adjoint/temperature_profile.png"
        alt="Temperature profile.">
   <figcaption>
-   Figure 2: Evolution of the temperature $T(z)$ and the CO concentration along the reactor for two inlet temperatures: 750K and 800K. At $T_{\text{in}}$ = 750K, the temperature decreases gradually as CO disappears further down the reactor. The chemical reaction is stable and no thermal runaway occurs.
+   Figure 2: Evolution of the temperature $T(z)$ and the $\text{CO}$ concentration along the reactor for two inlet temperatures: 750K and 800K. At $T_{\text{in}}$ = 750K, the temperature decreases gradually as $\text{CO}$ disappears further down the reactor. The chemical reaction is stable and no thermal runaway occurs.
   </figcaption>
 </figure>
 
-The total conversion ratio is about $13\%$, which is on the low side. Increasing the inlet temperature to 800K causes the reactor to go into thermal runaway, reaching over 1100K. The reason is essentially due to the Arrhenius law. A higher inlet temperature induces a higher reaction rate, and because the reaction is exothermic, it causes more heat to be released as CO is converted. Increasing $T_{\text{in}}$ can have strongly nonlinear effects!
+The total conversion ratio is about $13\%$, which is on the low side. Increasing the inlet temperature to 800K causes the reactor to go into thermal runaway, reaching over 1100K. The reason is essentially due to the Arrhenius law. A higher inlet temperature induces a higher reaction rate, and because the reaction is exothermic, it causes more heat to be released as $\text{CO}$ is converted. Increasing $T_{\text{in}}$ can have strongly nonlinear effects!
 
 To explore how the reactor changes as we vary the inlet temperature, we can solve the PDEs for many different values of $T_{\text{in}}$ and keep track of both the maximum temperature and the conversion ratio. The resulting bifurcation diagram in Figure 3 reveals a sharp and abrupt transition. Above the critical inlet temperature (approximately 780 K), the system snaps into a thermal-runaway regime. The problem is even worse because of hysteresis: once the reactor is operating in the upper branch, we must cool it well below the critical temperature to return it into the safe zone.
 
@@ -127,13 +127,13 @@ Large values of $\gamma$ impose a strong penalty on any temperature rise, keepin
 ## Multiple Catalyst Zones
 A natural question is whether a spatially varying catalyst profile can do even better. We can run that experiment as well. We divide the reactor into five equal zones with catalyst concentrations $a_1, .., a_5$. The catalyst distribution now is piecewise linear. The gradient-descent optimizer can be extended to multiple dimensions, and FEniCS and Dolfin can easily handle five controls.
 
-The optimized catalyst profile is shown in the final figure (Figure 5). The optimizer puts many pellets in the first zone, and a much lesser number in the other ones. The final conversion is essentially unchanged at $44.78\%$, but this design uses significantly less total catalyst, offering a clear cost benefit. We can explain why this is a near-optimal profile. Most of the reaction takes place at the inlet because temperature is highest there. As gas moves down the reactor, temperature decreases and it would not be beneficial to place many catalyst pellets, most would never react with the remaining CO.
+The optimized catalyst profile is shown in the final figure (Figure 5). The optimizer puts many pellets in the first zone, and a much lesser number in the other ones. The final conversion is essentially unchanged at $44.78\%$, but this design uses significantly less total catalyst, offering a clear cost benefit. We can explain why this is a near-optimal profile. Most of the reaction takes place at the inlet because temperature is highest there. As gas moves down the reactor, temperature decreases and it would not be beneficial to place many catalyst pellets, most would never react with the remaining $\text{CO}$.
 
 <figure>
   <img src="/images/blog/pde-adjoint/multi_zones.png"
        alt="Temperature profile.">
   <figcaption>
-   Figure 5: CO concentration (top), temperature $T(z)$ (middle) and catalyst concentration $a(z)$ (bottom) for the optimal 5-zone catalyst solution. Most of the conversion happens at the inlet, and most of the catalyst should be put there. As the CO profile decreases sharply, there is little gain from placing much catalyst in the other zones.
+   Figure 5: $\text{CO}$ concentration (top), temperature $T(z)$ (middle) and catalyst concentration $a(z)$ (bottom) for the optimal 5-zone catalyst solution. Most of the conversion happens at the inlet, and most of the catalyst should be put there. As the CO profile decreases sharply, there is little gain from placing much catalyst in the other zones.
   </figcaption>
 </figure>
 
