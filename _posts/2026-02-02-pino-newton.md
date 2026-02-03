@@ -5,7 +5,7 @@ date: 2026-02-02
 substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimization-part"
 ---
 
-I recently started a project to understand physics informed neural networks (PINNs) and operators (PINOs) better. My goal is to train a physics-informed neural operator for a second-order PDE in three dimensions with non-trivial boundary conditions. Read more about my plan and my ultimate goal in my previous post. Today, we begin the first leg of this journey: learning the time-dependent solution to Newton's heat law for any input time and combination of model parameters.
+I [recently started a project](/blog/understanding-pinn-from-the-ground-up) to understand physics informed neural networks (PINNs) and operators (PINOs) better. My goal is to train a physics-informed neural operator for a second-order PDE in three dimensions with non-trivial boundary conditions. Read more about my plan and my ultimate goal in my previous post. Today, we begin the first leg of this journey: learning the time-dependent solution to Newton's heat law for any input time and combination of model parameters.
 
 Newton's heat law describes how the temperature of an object changes when the object is put in a heat bath. Let $T(0) = T_0$ be the initial temperature of the object, and let the surrounding heat bath have a fixed temperature $T_s$. The object's temperature will converge towards $T_s$ with rate $k$ which is given by the object's surface area, heat capacity, and microscopic structure. In general, temperature $T(t)$ at time $t$ satisfies the (ordinary) differential equation
 
@@ -21,9 +21,8 @@ $$
     T(t) = T_s + \left(T_0 - T_s\right)\exp\left(-kt\right).
 \tag{2}
 $$
-The temperature decays exponentially from $T_0$ to $T_s$.
 
-In total, there are three free parameters: the initial temperature $T_0$, the heat bath temperature $T_s$ and the rate constant $k$. The object's temperature as a function of time, $T(t)$, depends on all three. Physics-informed operators should have no problem modeling the exponential decay as a function of three parameters. Let's dig in.
+The temperature decays exponentially from $T_0$ to $T_s$. In total, there are three free parameters: the initial temperature $T_0$, the heat bath temperature $T_s$ and the rate constant $k$. The object's temperature as a function of time, $T(t)$, depends on all three. Physics-informed operators should have no problem modeling the exponential decay as a function of three parameters. Let's dig in.
 
 ## A Simple PINO
 Our first physics-informed neural network takes time $t$ and the three parameters as input. The output is just the current temperature $T(t)$. We start with the simplest setup imaginable: a simple multilayer perceptron (MLP) with two hidden layers and $z=32$ features per layer. 
@@ -142,7 +141,7 @@ Adam is a great all-purpose optimizer and should essentially always be used to b
   <img src="/images/blog/pino/lbfgs_convergence.png"
        alt="Initial convergence with the Adam optimizer.">
   <figcaption>
-    Figure 4: L-BFGS is able to reduce the loss and relative RMS by three orders of magnitude.
+    Figure 4: L-BFGS is able to reduce the loss and relative RMS by orders of magnitude.
   </figcaption>
 </figure>
 
@@ -158,7 +157,7 @@ Figure 5: (Left) Time evolution $T(t)$ predicted by a PINO trained with L-BFGS (
 </figcaption>
 </figure>
 
-So how does L-BFGS perform? Starting from the final Adam checkpoint, we see in Figure~4 that the loss decreases to $10^{-}$. Furthermore, Figure~5 displays a much better approximation to the exponential decay!
+So how does L-BFGS perform? Starting from the final Adam checkpoint, we see in Figure~4 that the loss decreases to $2 \times 10^{-5}$. Furthermore, Figure~5 displays a much better approximation to the exponential decay!
 
 ## Conclusion
 This first step was already much more interesting and complicated than I thought. What started as learning the solution to a simple ODE quickly bifurcated into side quests about biased sampling, time biasing and higher-order optimizers. I learned a lot and we're one step closer to my goal!
