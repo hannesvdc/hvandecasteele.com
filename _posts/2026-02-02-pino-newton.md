@@ -14,7 +14,7 @@ $$
 \tag{1}
 $$
 
-We assume that the temperature is uniform throughout the object. If not, we would need to model the spatial temperature profile using a partial differential equation, but that would lead us too far. Equation~(1) is simple enough that we can immediately write down its exact solution
+We assume that the temperature is uniform throughout the object. If not, we would need to model the spatial temperature profile using a partial differential equation, but that would lead us too far. Equation (1) is simple enough that we can immediately write down its exact solution
 
 
 $$
@@ -86,7 +86,7 @@ This relative error should decrease significantly over the course of training. I
   </figcaption>
 </figure>
 
-Training and validation loss and relative RMS by themselves are useful convergence metrics, but they don't tell us anything about how well the PINN performs on independent test data. We are interested in calculating the actual temperature profile $T(t)$ for any initial temperature $T_0$, bath temperature $T_s$ and rate $k$. Fortunately, we can compare this profile with the analytic solution (Eq.~(2)). Figure 2 (left) shows a comparison for an unseen test parameter. The temperature profile follows the initial exponential profile, but there is a large and constant bias for large $t$. We can measure this bias by considering
+Training and validation loss and relative RMS by themselves are useful convergence metrics, but they don't tell us anything about how well the PINN performs on independent test data. We are interested in calculating the actual temperature profile $T(t)$ for any initial temperature $T_0$, bath temperature $T_s$ and rate $k$. Fortunately, we can compare this profile with the analytic solution (Equation (2)). Figure 2 (left) shows a comparison for an unseen test parameter. The temperature profile follows the initial exponential profile, but there is a large and constant bias for large $t$. We can measure this bias by considering
 
 $$
     \frac{T(t) -T_s}{T_0 - T_s} = \exp\left(-k t\right).
@@ -100,39 +100,39 @@ $$
 
 <figure>
 <div style="display: flex; justify-content: center; gap: 1rem;">
-  <img src="/images/pino/linear_unbiased_example.png" style="width: 48%;">
-  <img src="/images/pino/linear_unbiased_master.png" style="width: 48%;">
+  <img src="/images/blog/pino/linear_unbiased_example.png" style="width: 48%;">
+  <img src="/images/blog/pino/linear_unbiased_master.png" style="width: 48%;">
 </div>
 <figcaption>
 Figure 2: (Left) PINO time evolution of $T(t)$ (blue) compared to the analytic solution (orange). (Right) PINO master curve compared to analytic master curve.
 </figcaption>
 </figure>
 
-Figure~2 shows the PINO clearly learned *something* about the exponential decay, but there is a large bias for large $\tau$. What could be the reason for this bias? What is going wrong here?
+Figure 2 shows the PINO clearly learned *something* about the exponential decay, but there is a large bias for large $\tau$. What could be the reason for this bias? What is going wrong here?
 
 ## Being more careful about the Dirichlet Boundary
 I was initially puzzled by this bias. It looks like a bug in the code: a wrong factor or perhaps we're just computing the master curve wrong.
 
-However, the problem is more insidious. Looking back at the formula for the predicted temperature (Eq.~(3)), the factor $\tau$ is a problem. Sure, when $\tau$ is zero, the Dirichlet boundary condition is satisfied. But what happens as $\tau$ grows? The trainable function $g_{\theta}$ needs to essentially learn a $1/\tau$ factor. Inverses are tough for any neural network.
+However, the problem is more insidious. Looking back at the formula for the predicted temperature (Equation (3)), the factor $\tau$ is a problem. Sure, when $\tau$ is zero, the Dirichlet boundary condition is satisfied. But what happens as $\tau$ grows? The trainable function $g_{\theta}$ needs to essentially learn a $1/\tau$ factor. Inverses are tough for any neural network.
 This problem is perfectly fixable once you realize that the prefactor does not need to be $\tau$ exactly. Any function of $f(\tau)$ will get the job done as long as $f(0) = 0$. Ideally, $f(\tau) \to 1$ as $\tau$ grows. We use
 
 $$
     f(\tau) = 1 - \exp(-2\tau).
 $$
 
-Note the extra factor $2$. We could just make it easy for ourselves by using the exact time decay $1-\exp(-\tau)$ as a prefactor (see equation~(2)), but that would be disingenuous. I want to learn as much as possible about physics-informed learning, so let's make it intentionally harder. Training is now *a lot more difficult* than it should, but Newton's law is so simple that a PINN should be able to deal with this explicit bias.
+Note the extra factor $2$. We could just make it easy for ourselves by using the exact time decay $1-\exp(-\tau)$ as a prefactor (see Equation (2)), but that would be disingenuous. I want to learn as much as possible about physics-informed learning, so let's make it intentionally harder. Training is now *a lot more difficult* than it should, but Newton's law is so simple that a PINN should be able to deal with this explicit bias.
 
 <figure>
 <div style="display: flex; justify-content: center; gap: 1rem;">
-  <img src="/images/pino/exponential_unbiased_example.png" style="width: 48%;">
-  <img src="/images/pino/exponential_unbiased_master.png" style="width: 48%;">
+  <img src="/images/blog/pino/exponential_unbiased_example.png" style="width: 48%;">
+  <img src="/images/blog/pino/exponential_unbiased_master.png" style="width: 48%;">
 </div>
 <figcaption>
 Figure 3: (Left) PINO time evolution of $T(t)$ (blue) with exponential time factor compared to the analytic solution (orange). (Right) PINO master curve compared to analytic master curve.
 </figcaption>
 </figure>
 
-With the introduction of this exponential time factor, we get a much better approximation of the master curve - see Figure~3. The bias for large $\tau$ is completely gone; the PINO even learned to correct for the explicit bias in the time factor for small $\tau$! The example on the right tells the same story.
+With the introduction of this exponential time factor, we get a much better approximation of the master curve - see Figure 3. The bias for large $\tau$ is completely gone; the PINO even learned to correct for the explicit bias in the time factor for small $\tau$! The example on the right tells the same story.
 
 ## The Secret Sauce: L-BFGS for Fine Tuning
 Adam is a great all-purpose optimizer and should essentially always be used to bring the initial loss down many orders of magnitude. However, on its own it will never be enough to learn the fine detail of a physics-informed neural network or operator; especially when the physics gets harder. The reasons are twofold: the loss function and batching. First, the loss depends on the *derivative* of the neural network output. A slight change in inputs $t$ or $\tau$ will cause a relatively large change in $T(t)$ and its derivative $dT(t)/dt$. The local minimum in the loss where the physics is satisfied is narrow and Adam will never be able to fine-tune the weights enough to hit the bottom of the loss well. Batching exacerbates this problem. The Adam optimizer follows the local loss gradient to propose a new set weights. With batching, the local gradient is random and Adam will bounce around the local minimum in parameter space without ever reaching it.
@@ -149,15 +149,15 @@ L-BFGS improves convergence to the loss minimum on both counts. Although it is a
 
 <figure>
 <div style="display: flex; justify-content: center; gap: 1rem;">
-  <img src="/images/pino/lbfgs_example.png" style="width: 48%;">
-  <img src="/images/pino/lbfgs_master.png" style="width: 48%;">
+  <img src="/images/blog/pino/lbfgs_example.png" style="width: 48%;">
+  <img src="/images/blog/pino/lbfgs_master.png" style="width: 48%;">
 </div>
 <figcaption>
 Figure 5: (Left) Time evolution $T(t)$ predicted by a PINO trained with L-BFGS (blue) compared with the analytic solution (orange). (Right) Corresponding PINO master curve compared with the analytic master curve.
 </figcaption>
 </figure>
 
-So how does L-BFGS perform? Starting from the final Adam checkpoint, we see in Figure~4 that the loss decreases to $2 \times 10^{-5}$. Furthermore, Figure~5 displays a much better approximation to the exponential decay!
+So how does L-BFGS perform? Starting from the final Adam checkpoint, we see in Figure 4 that the loss decreases to $2 \times 10^{-5}$. Furthermore, Figure 5 displays a much better approximation to the exponential decay!
 
 ## Conclusion
 This first step was already much more interesting and complicated than I thought. What started as learning the solution to a simple ODE quickly bifurcated into side quests about biased sampling, time biasing and higher-order optimizers. I learned a lot and we're one step closer to my goal!
