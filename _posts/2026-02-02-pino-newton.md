@@ -2,7 +2,7 @@
 layout: post
 title: "A Physics-Informed Neural Operator for Newton's Heat Law"
 date: 2026-02-02
-substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimization-part"
+substack_url: "https://hannesvdc.substack.com/p/a-physics-informed-neural-operator"
 ---
 
 I [recently started a project](/blog/understanding-pinn-from-the-ground-up) to understand physics informed neural networks (PINNs) and operators (PINOs) better. My goal is to train a physics-informed neural operator for a second-order PDE in three dimensions with non-trivial boundary conditions. Read more about my plan and my ultimate goal in my previous post. Today, we begin the first leg of this journey: learning the time-dependent solution to Newton's heat law for any input time and combination of model parameters.

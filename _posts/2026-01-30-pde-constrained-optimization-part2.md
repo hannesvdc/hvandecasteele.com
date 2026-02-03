@@ -2,7 +2,7 @@
 layout: post
 title: "PDE-Constrained Optimization Part 2: Optimizing the Yield of a Chemical Reactor"
 date: 2026-01-30
-substack_url: "https://https://hannesvdc.substack.com/p/pde-constrained-optimization-part"
+substack_url: "https://hannesvdc.substack.com/p/pde-constrained-optimization-part"
 ---
 
 In [Part 1 of this series](/blog/pde-constrained-optimization-part2) I introduced the deep mathematics and impactful applications behind PDE-constrained optimization. If you’re interested in how this technology and its adjoint-based underpinnings work, be sure to check it out! Here in Part 2 I will go through the real-life problem of optimizing the yield of a chemical reactor. We will build a first principles model and then use PDE-constrained optimization to increase the so-called conversion ratio. I will provide lots of figures and hopefully a strong appreciation of the strength and breadth of PDE-constrained optimization!
