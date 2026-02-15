@@ -98,12 +98,15 @@ $$
 
 with $\gamma = 2$. When $\gamma > 1$ the distribution of $\tau$ will be largely skewed towards small values = exactly what we need. $\tau_{\min}$ is just a small value to avoid dealing with the log of zero. I use $\tau_{\min}=10^{-3}$. $7000$ out of $10000$ samples for $\tau$ are generated using (4), and $30\%$ are uniform between $0$ and $\tau_{\max}$ to still keep some large training samples so the network doesn't 'forget' long-time evolution.
 
-<figure style="display: flex; gap: 2%; justify-content: center;">
-  <img src="/images/blog/pino-diffusion/Fourier_biased_tau.png" style="width:48%;">
-  <img src="/images/blog/pino-diffusion/Fourier_log_biased_tau.png" style="width:48%;">
-  <figcaption>
-    Figure 4: Fourier modes of the trained PINN with biased $\tau$ samples.
-  </figcaption>
+
+<figure>
+<div style="display: flex; justify-content: center; gap: 1rem;">
+  <img src="/images/blog/pino-diffusion/Fourier_biased_tau.png" style="width: 48%;">
+  <img src="/images/blog/pino-diffusion/Fourier_log_biased_tau.png" style="width: 48%;">
+</div>
+<figcaption>
+ Figure 4: Fourier modes of the trained PINN with biased $\tau$ samples.
+</figcaption>
 </figure>
 
 Figure 4 shows the resulting predictions in Fourier space. The learned Fourier modes closely follow the expected exponential decay, indicating that the PINO captures the correct spectral structure of the solution. The figure on the right displays the same Fourier modes in log scale. We see that the decay rate indeed matches initially, but small residual oscillations and mild discrepancies appear once $\tau > 0.6$. These deviations are quantitatively minor and occur in a regime where the dynamics are already strongly damped, but they highlight the remaining limitations of the model at long time scales. Nevertheless, Figure 5 shows an excellent match of the PDE solutions!
@@ -119,12 +122,14 @@ Figure 4 shows the resulting predictions in Fourier space. The learned Fourier m
 ### Resolving Large $\tau$: Trying a Deeper Network
 The current network only has two hidden layers with $64$ neurons each. This is probably right on the edge for this example. A deeper network should theoretically translate to more expressiveness, decreased loss and fit on the real PDE solution. Here I try a network with 4 hidden layers and 64 neurons per layer. The dataset and training routine are the same as in the previous section.
 
-<figure style="display: flex; gap: 2%; justify-content: center;">
-  <img src="/images/blog/pino-diffusion/Fourier_deeper.png" style="width:48%;">
-  <img src="/images/blog/pino-diffusion/Fourier_deeper_log.png" style="width:48%;">
-  <figcaption>
-    Figure 6: PINO Fourier mode decay with a deeper network. The match with the analytic coefficients lasts longer, especially in the leading coefficient.
-  </figcaption>
+<figure>
+<div style="display: flex; justify-content: center; gap: 1rem;">
+  <img src="/images/blog/pino-diffusion/Fourier_deeper.png" style="width: 48%;">
+  <img src="/images/blog/pino-diffusion/Fourier_deeper_log.png" style="width: 48%;">
+</div>
+<figcaption>
+Figure 6: PINO Fourier mode decay with a deeper network. The match with the analytic coefficients lasts longer, especially in the leading coefficient.
+</figcaption>
 </figure>
 
 Figure 6 shows the Fourier coefficients of the deeper MLP in log-scale - and we see they follow the analytic coefficients for much longer in time, indicating improved training! This figure also showcases another aspect of PINNs. PINNs generally learn the low-frequency components of the solution well but tend to underperform on the high-frequency modes. The reason is simple: PINNs/PINOs optimize the physics residual, not the fit on the solution. Minimizing the latter would be ideal - it is the solution we are interested in after all - but analytic solutions are generally not available (what would be the point of PINNs otherwise?) so we have to do the best possible job with only the physics residual.
