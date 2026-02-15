@@ -50,7 +50,7 @@ $$
 per epoch for this model and training setup. The Adam optimizer reduces the loss by four orders of magnitude, but the validation loss stagnates.
 
 <figure>
-  <img src="diffusion/Convergence_Adam_uniform_tau.png" width="75%">
+  <img src="/images/blog/pino-diffusion/Convergence_Adam_uniform_tau.png" width="75%">
   <figcaption>
     Figure 1: Training loss (blue), validation loss (green), loss gradient (orange) and root mean squared error (red) per epoch of the initial setup with uniform τ samples. The training loss decreases by orders of magnitude but the validation loss and RMS stagnate. The network is not learning any physics.
   </figcaption>
@@ -59,7 +59,7 @@ per epoch for this model and training setup. The Adam optimizer reduces the loss
 So how does this model perform? Figure 2 shows a heat map of the PDE solution, obtained by finite differences, and the PINO solution on the same scale. The correspondence is ... *not great*. Sure, the global evolutions match, but the fine-grained structure is off, especially in the initial exponential decay. 
 
 <figure>
-  <img src="diffusion/PDE_Solution.png" width="75%">
+  <img src="/images/blog/pino-diffusion/PDE_Solution.png" width="75%">
   <figcaption>
     Figure 2: Left: Solution to the heat equation by the physics-informed operator; Right: PDE solution computed by finite differences for the same initial condition and parameters. The fit is not great.
   </figcaption>
@@ -82,7 +82,7 @@ $$
 Any decent PINO should be able to follow this rate decay closely, at least when $\tau$ is small. One look at Figure 3 shows that there is a big mismatch. This error is mainly due to the stagnation in the validation loss. Long story short: the network is over-training on the training data and not learning the physics.
 
 <figure>
-  <img src="diffusion/Fourier_modes_uniform.png" width="75%">
+  <img src="/images/blog/pino-diffusion/Fourier_modes_uniform.png" width="75%">
   <figcaption>
     Figure 3: First and second Fourier mode (equation (2)) of the PINO versus the analytic formula (equation (3)). Though there is exponential decay in the PINO Fourier modes, the initial increase is completely wrong.
   </figcaption>
@@ -99,8 +99,8 @@ $$
 with $\gamma = 2$. When $\gamma > 1$ the distribution of $\tau$ will be largely skewed towards small values = exactly what we need. $\tau_{\min}$ is just a small value to avoid dealing with the log of zero. I use $\tau_{\min}=10^{-3}$. $7000$ out of $10000$ samples for $\tau$ are generated using (4), and $30\%$ are uniform between $0$ and $\tau_{\max}$ to still keep some large training samples so the network doesn't 'forget' long-time evolution.
 
 <figure style="display: flex; gap: 2%; justify-content: center;">
-  <img src="diffusion/Fourier_biased_tau.png" style="width:48%;">
-  <img src="diffusion/Fourier_log_biased_tau.png" style="width:48%;">
+  <img src="/images/blog/pino-diffusion/Fourier_biased_tau.png" style="width:48%;">
+  <img src="/images/blog/pino-diffusion/Fourier_log_biased_tau.png" style="width:48%;">
   <figcaption>
     Figure 4: Fourier modes of the trained PINN with biased $\tau$ samples.
   </figcaption>
@@ -109,7 +109,7 @@ with $\gamma = 2$. When $\gamma > 1$ the distribution of $\tau$ will be largely 
 Figure 4 shows the resulting predictions in Fourier space. The learned Fourier modes closely follow the expected exponential decay, indicating that the PINO captures the correct spectral structure of the solution. The figure on the right displays the same Fourier modes in log scale. We see that the decay rate indeed matches initially, but small residual oscillations and mild discrepancies appear once $\tau > 0.6$. These deviations are quantitatively minor and occur in a regime where the dynamics are already strongly damped, but they highlight the remaining limitations of the model at long time scales. Nevertheless, Figure 5 shows an excellent match of the PDE solutions!
 
 <figure>
-  <img src="diffusion/PDE_Solutions_biased_tau.png" width="75%">
+  <img src="/images/blog/pino-diffusion/PDE_Solutions_biased_tau.png" width="75%">
   <figcaption>
     Figure 5: (Left) Solution to the heat equation by the physics-informed operator trained with biased $\tau$-samples (see equation (4)); (Right) PDE solution computed by finite differences for the same initial condition and parameters. Much better fit compared to Figure 2!
   </figcaption>
@@ -120,8 +120,8 @@ Figure 4 shows the resulting predictions in Fourier space. The learned Fourier m
 The current network only has two hidden layers with $64$ neurons each. This is probably right on the edge for this example. A deeper network should theoretically translate to more expressiveness, decreased loss and fit on the real PDE solution. Here I try a network with 4 hidden layers and 64 neurons per layer. The dataset and training routine are the same as in the previous section.
 
 <figure style="display: flex; gap: 2%; justify-content: center;">
-  <img src="diffusion/Fourier_deeper.png" style="width:48%;">
-  <img src="diffusion/Fourier_deeper_log.png" style="width:48%;">
+  <img src="/images/blog/pino-diffusion/Fourier_deeper.png" style="width:48%;">
+  <img src="/images/blog/pino-diffusion/Fourier_deeper_log.png" style="width:48%;">
   <figcaption>
     Figure 6: PINO Fourier mode decay with a deeper network. The match with the analytic coefficients lasts longer, especially in the leading coefficient.
   </figcaption>
@@ -141,7 +141,7 @@ to the physics loss to penalize large weights. Large weights typically induce no
 Regularization adds another hyperparameter, $\lambda$, to the learning problem. Determining the optimal $\lambda$ has been an area of deep research, and a lot of compute is spent on finding it because it is a problem-dependent setting. A good rule of thumb is that the regularization term should be $5\%$ to $10\%$ of the total loss. We use $\lambda = 10^{-6}$ here.
 
 <figure>
-  <img src="diffusion/Fourier_regularized_log.png" width="75%">
+  <img src="/images/blog/pino-diffusion/Fourier_regularized_log.png" width="75%">
   <figcaption>
     Figure 7: The leading Fourier modes stagnates when a regularization term is added to the physics loss.
   </figcaption>
@@ -155,7 +155,7 @@ Perhaps regularization does not cooperate with physics.
 Figure 8 compares the best-performing PINO model (the 4-layer network) and the true PDE solution obtained by finite differences (different color scheme and parameters compared to Figures 2 and 5). The agreement is excellent: the dominant spatial structure, the transient dynamics at small $\tau$, and the long-time decay toward steady state are all captured accurately. This final result confirms that, with the right training setup and inductive biases, physics-informed neural operators the diffusion equation to high fidelity.
 
 <figure>
-  <img src="diffusion/optimal_pde_solution.png" width="75%">
+  <img src="/images/blog/pino-diffusion/optimal_pde_solution.png" width="75%">
   <figcaption>
     Figure 8: Final comparison between the best-performing PINO model (left) and the reference PDE solution computed by finite differences (right).
   </figcaption>
