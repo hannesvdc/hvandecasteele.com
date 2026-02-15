@@ -160,7 +160,7 @@ Figure 8 compares the best-performing PINO model (the 4-layer network) and the t
   </figcaption>
 </figure>
 
-I learned many things from these experiments First, and unfortunately, PINOs are highly sensitive to the distribution of training data, especially in time. Uniform sampling in $\tau$ led to stagnation in validation loss and poor reproduction of the early-time dynamics, where the heat equation exhibits the most rapid changes. Simply biasing the sampling toward smaller $\tau$ values dramatically improved performance, allowing the network to correctly learn the exponential decay rates of the leading Fourier modes.
+I learned many things from these experiments. First, and unfortunately, PINOs are highly sensitive to the distribution of training data, especially in time. Uniform sampling in $\tau$ led to stagnation in validation loss and poor reproduction of the early-time dynamics, where the heat equation exhibits the most rapid changes. Simply biasing the sampling toward smaller $\tau$ values dramatically improved performance, allowing the network to correctly learn the exponential decay rates of the leading Fourier modes.
 
 Second, architectural capacity matters, especially at long times. While a shallow MLP was sufficient to capture the dominant low-frequency behavior of the solution, it struggled to faithfully track the decay of Fourier modes for larger $\tau$. Increasing network depth extended the time horizon over which the learned spectral decay matched the analytic behavior. This aligns with a broader observation in the literature: PINNs learn low-frequency components well but perform poorly on the high-frequency modes.
 
