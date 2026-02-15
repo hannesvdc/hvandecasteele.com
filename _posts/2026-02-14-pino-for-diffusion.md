@@ -2,6 +2,7 @@
 layout: post
 title: "Learning the Heat Equation"
 date: 2026-02-14
+substack_url: "https://hannesvdc.substack.com/p/learning-the-heat-equation"
 ---
 
 In my last post on physics-informed learning, I trained a neural 'operator' that solves Newton's heat law for a material entering a heat bath. The model was able to learn the precise thermal evolution given any initial temperature and heat capacity of the material and temperature of the heat bath. A few tricks were needed to nail convergence: input, parameter and output normalization, including the Dirichlet initial condition directly into the neural network output through a *time factor* and using a second-order optimizer to fine-tune the loss. These are standard elements in any physics-informed learning procedure, but I learned the hard way that they are indeed necessities.
