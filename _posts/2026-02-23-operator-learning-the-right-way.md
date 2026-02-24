@@ -127,7 +127,7 @@ In the convolutional approach, each linear layer is replaced by a convolutional 
 
 However, learning one convolution kernel (also known as a channel) is hardly enough to process random input functions. We use $32$ channels and a total of $8$ back-to-back convolution layers in our `Conv-Branch` setup. The total 'width' of the network is $5 \times 8$ (kernel size x number of layers), meaning every point can see 40 neighbors after 8 layers - enough the process the full physical field ($40 \approx 51$ grid points). At the end of these convolution layers, the output has shape $(B, 32, 51)$ and we use average pooling to reduce this to $(B, 32)$ before passing to the trunk (with another LayerNorm).
 
-For comparison, the branch-MLP approach uses 32,865 trainable parameters, while the Conv-Branch setups use 50,413 trainable parameters on the dot. Figure 1 shows both architectures.
+For comparison, the branch-MLP approach uses 32,865 trainable parameters, while the Conv-Branch setups use 50,413 trainable parameters. Figure 1 shows both architectures.
 
 Both neural networks are trained using the Adam optimizer with an initial learning rate of $10^{-4}$, which is kept constant over $1000$ epochs. Afterwards, the learning rate is decreased gradually to $10^{-6}$ using a cosine annealing scheduler over $10,000$ epochs. During training, we keep track of the loss, loss gradient, validation loss and the root mean-squared error (RMS). The RMS is a metric for how much of the physics the network has learned. I highly recommend checking out my previous post [here](https://www.hvandecasteele.com/blog/pino-for-diffusion/) for explicit formulas of the loss, RMS and neural network network output.
 
