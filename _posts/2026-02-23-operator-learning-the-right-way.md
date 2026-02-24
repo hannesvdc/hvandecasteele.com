@@ -4,7 +4,6 @@ title: "Operator Learning: The Right Way"
 date: 2026-02-23
 ---
 
-# Convolution is Essential
 Over the last week, I have taken a hands-on deep dive into operator learning for the heat equation. Boy, it has been a frustrating journey; and we are far from done. I can't remember the last time I have had these many ups and downs in my professional life, and it has only been five days!
 
 The goal of this post is to summarize my findings on how to do *proper* physics-informed operator learning. Along the way, I will also discuss practical lessons learned, common failure modes, and design choices that materially affect performance. In particular, I want to introduce Feature-wise Linear Modulation (FiLM) for physics-informed learning.
@@ -87,7 +86,7 @@ Simply adding $51$ extra input neurons to the network is unlikely to work well, 
 In this post, I explore two underused approaches for incorporating initial conditions (or, more generally, functional inputs like source terms) into neural operators
 
 - __Low-dimensional embedding via a branch network:__ map $u_0$ to a compact latent representation $z \in \mathbb{R}^q$ with $q < 51$, and feed this embedding as additional inputs to the main (trunk) network. Figure 2 (a) displays this network architecture;
-- __Feature-wise Linear Modulation (FiLM):__ inject information from $u_0$ into each layer of the trunk network via learned, input-dependent affine transformations. FiLM produces an immensely powerful representation and has helped me previously with [diffusion models for science.] Figure 2 (b) displays this network architecture.
+- __Feature-wise Linear Modulation (FiLM):__ inject information from $u_0$ into each layer of the trunk network via learned, input-dependent affine transformations. FiLM produces an immensely powerful representation and has helped me previously with [diffusion models for science](https://www.hvandecasteele.com/blog/sgms/). Figure 2 (b) displays this network architecture.
 
 The terms “branch” and “trunk” follow the standard nomenclature introduced in the DeepONet literature. The branch network encodes functional inputs or conditioning variables (here, the initial condition $u_0$), while the trunk network (typically smaller) operates on space and time $(x, t)$. I do not keep to these strict definitions here; the rate constant $\kappa$ and the ambient temperature $T_s$ are fed directly into the trunk network alongside $x$ and $t$. I think the important distinction is point-wise conditioning (trunk) versus global conditioning (branch), not conditioning versus physics.
 
@@ -130,7 +129,7 @@ However, learning one convolution kernel (also known as a channel) is hardly eno
 
 For comparison, the branch-MLP approach uses 32,865 trainable parameters, while the Conv-Branch setups use 50,413 trainable parameters on the dot. Figure 1 shows both architectures.
 
-Both neural networks are trained using the Adam optimizer with an initial learning rate of $10^{-4}$, which is kept constant over $1000$ epochs. Afterwards, the learning rate is decreased gradually to $10^{-6}$ using a cosine annealing scheduler over $10,000$ epochs. During training, we keep track of the loss, loss gradient, validation loss and the root mean-squared error (RMS). The RMS is a metric for how much of the physics the network has learned. I highly recommend checking out my previous post [here] for explicit formulas of the loss, RMS and neural network network output.
+Both neural networks are trained using the Adam optimizer with an initial learning rate of $10^{-4}$, which is kept constant over $1000$ epochs. Afterwards, the learning rate is decreased gradually to $10^{-6}$ using a cosine annealing scheduler over $10,000$ epochs. During training, we keep track of the loss, loss gradient, validation loss and the root mean-squared error (RMS). The RMS is a metric for how much of the physics the network has learned. I highly recommend checking out my previous post [here](https://www.hvandecasteele.com/blog/pino-for-diffusion/) for explicit formulas of the loss, RMS and neural network network output.
 
 <figure>
 <div style="display: flex; justify-content: center; gap: 1rem;">
