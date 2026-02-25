@@ -2,6 +2,7 @@
 layout: post
 title: "Operator Learning: The Right Way"
 date: 2026-02-23
+substack_url: "https://hannesvdc.substack.com/p/operator-learning-the-right-way"
 ---
 
 Over the last week, I have taken a hands-on deep dive into operator learning for the heat equation. Boy, it has been a frustrating journey; and we are far from done. I can't remember the last time I have had these many ups and downs in my professional life, and it has only been five days!
