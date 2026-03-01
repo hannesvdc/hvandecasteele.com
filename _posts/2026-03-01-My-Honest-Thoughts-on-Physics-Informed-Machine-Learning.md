@@ -2,6 +2,7 @@
 layout: post
 title: "The Deep Truth about Physics-Informed Learning"
 date: 2026-03-01
+substack_url: "https://hannesvdc.substack.com/p/the-deep-truth-about-physics-informed"
 ---
 
 Over the past month I've been exploring physics-informed learning to understand how viable it has become as alternative to existing expensive solvers for PDEs. It has been a journey filled with learning, excitement, frustration and the occasional a-ha! moment. I really recommend taking a deep dive into any topic - and physics-informed ML in particular - because not only will you understand the subject much better, you will also start generating your own ideas and learn about related topics. It's really a story of self-development and building expertise!
