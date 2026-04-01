@@ -104,7 +104,7 @@ $$
     \text{NN}_{\theta}: (x, y, \nu, g) \mapsto \left(u(x,y), v(x,y)\right).
 $$
 
-In the 'strong' setting one would just evaluate equation (1), compute its residual, and sum over the batch. In our 'weak' sense, the loss is an integral over the complete domain $\Omega$ and its (traction) boundary $\partial \Omega_N$. This means we need to propagate a whole batch of $(x_i, y_i)$ samples (for a given boundary forcing) for one loss / energy evaluation. In fact, we need to propagate two batches of samples: $\{x_i, y_i\}_{i=1}^N$ for the bulk $\Omega$ and $\{y_j\}_{j=1}^M$ for the boundary $\partial \Omega_N$. Fortunately, any classical numerical integration method works fine in our context. I use a Monte Carlo method with $5000$ random points in the bulk, sampled every epoch. Monte Carlo induces some extra noise in the loss evaluations, but reduces the risk of overfitting on a fixed quadrature grid.
+In the 'strong' setting one would just evaluate equation (1), compute its residual, and sum over the batch. In our 'weak' sense, the loss is an integral over the complete domain $\Omega$ and its (traction) boundary $\partial \Omega_N$. This means we need to propagate a whole batch of $(x_i, y_i)$ samples (for a given boundary forcing) for one loss / energy evaluation. In fact, we need to propagate two batches of samples: $\{x_i, y_i\}_{i=1}^N $ for the bulk $\Omega$ and $\{y_j\}_{j=1}^M$ for the boundary $\partial \Omega_N$. Fortunately, any classical numerical integration method works fine in our context. I use a Monte Carlo method with $5000$ random points in the bulk, sampled every epoch. Monte Carlo induces some extra noise in the loss evaluations, but reduces the risk of overfitting on a fixed quadrature grid.
 
 ## The Neural Architecture
 The neural architecture is very similar to the one we used for the [diffusion equation](https://www.hvandecasteele.com/blog/operator-learning-the-right-way/). Borrowing the terms 'branch' and 'trunk', the input to the branch network are the boundary forcing functions $g_x$ and $g_y$ on a fixed grid of $101$ points. For each training example, we sample the two components as independent Gaussian process on $y \in [0,1]$ with zero mean and correlation length $l = 0.2$. This produces smooth random traction profiles. Have a look at [Operator Learning: The Right Way](https://www.hvandecasteele.com/blog/operator-learning-the-right-way/) if you want to see a pretty picture of these boundary forcing functions.
@@ -117,12 +117,12 @@ $$
     \gamma_i h_i + \beta_i \tag{3}
 $$
 
-before being passed through the nonlinear activation function (GELU). The total number of trainable weights is about $300,000$. Figure 2 shows the complete architecture of this neural operator.
+before being passed through the nonlinear activation function (GELU). The total number of trainable weights is about 300,000. Figure 2 shows the complete architecture of this neural operator.
 
 The Young modulus is *not* an input to the neural network. The reason is that the solution to the linear elasticity PDEs (1) scales linearly with its inverse $1/E$. Indeed, increasing the stiffness $E$ by a factor of $10$ reduces the displacement field by the same factor for identical forcings. Equivalently, to produce the same displacement in a material that is ten times stiffer, one must also increase the applied traction by a factor of ten. In that sense, the physically relevant input is not the raw traction $g(y)$, but rather a scale-invariant forcing obtained after normalization by $E$. In fact, the Gaussian process generates scale-invariant sample traction functions. One of the lessons we learned is that including more physics into the network output improves the PINO. Adding scale-invariance to the network is very much in this spirit.
 
 <figure>
-  <img src="/images/blog/pino-elasticity/elastic_film_network.png" width="75%">
+  <img src="/images/blog/pino-elasticity/elastic_film_network.png" width="100%">
   <figcaption>
     Figure 2: Architecture of the Neural Operator. The traction boundary functions $g = (g_x, g_y)$ are processed by the branch network (upper left) consisting of 8 convolution layers followed by average pooling. The trunk network (bottom right) is a simple MLP with four hidden layers which takes $(x,y,\nu)$ as inputs and outputs the displacement field $(u(x,y), v(x,y))$. Conditioning on the traction is achieved through feature-wise linear modulation (3). The FiLM coefficients $\gamma_i, \beta_i$ for each of the hidden trunk layers are the output of the branch network.
   </figcaption>
@@ -146,7 +146,7 @@ Even with $\lambda = 0.1$, training progresses much more smoothly, and the final
 I want to emphasize that adding a traction loss is still physics-informed learning, the idea is just slightly less beautiful than the energy formulation (2) alone.
 
 <figure>
-  <img src="/images/blog/pino-elasticity/traction_vs_notraction.png" width="75%">
+  <img src="/images/blog/pino-elasticity/traction_vs_notraction.png" width="85%">
   <figcaption>
     Figure 3: Convergence of the Adam optimizer for two training setups: using the energy loss alone, and using the energy loss augmented with the boundary-traction loss (4). The extra traction term improves early training stability and lowers the noise level in the loss curve.
   </figcaption>
