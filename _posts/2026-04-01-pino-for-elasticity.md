@@ -2,6 +2,7 @@
 layout: post
 title: "From Heat to Elasticity: The Next Step in PINOs"
 date: 2026-04-01
+substack_url: "https://hannesvdc.substack.com/p/from-heat-to-elasticity-the-next"
 ---
 
 # Our first 2D example with traction boundary conditions
