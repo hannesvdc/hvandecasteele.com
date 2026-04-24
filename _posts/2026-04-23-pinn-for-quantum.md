@@ -2,6 +2,7 @@
 layout: post
 title: "Schrödinger's PINN"
 date: 2026-04-23
+substack_url: "https://hannesvdc.substack.com/p/schrodingers-pinn"
 ---
 
 So far in this series, I have been training physics-informed neural networks to solve increasingly interesting differential equations. These equations have mostly come from classical physics: heat flow and elastic structural deformations. In this post we take a break from regular physics and enter a new arena: quantum physics, molecules, and solving the Schrödinger equation using PINNs!
@@ -51,7 +52,7 @@ $$
     \tag{3}
 $$
 
-(Apologies for the sudden appearance of Dirac notation!) $ \mathcal{E}[\psi]$ measures the energy of the electron, through its wave function. If you're unfamiliar with Dirac notation,
+(Apologies for the sudden appearance of Dirac notation) $\mathcal{E}[\psi]$ measures the energy of the electron, through its wave function. If you're unfamiliar with Dirac notation,
 
 $$
     \langle f \mid g \rangle = \int f(r) g(r) dr
