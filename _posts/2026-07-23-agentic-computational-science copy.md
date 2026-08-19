@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Agentic Computational Science"
-date: 2026-04-23
+date: 2026-07-23
 substack_url: "https://hannesvdc.substack.com/p/agentic-computational-science"
 ---
 
